@@ -10,3 +10,4 @@
 * Support for states or 'scenes' with transitions etc
 * Good primitives for building a level editor inside the game (hover, mouse drag, selection, etc)
 * Webserver that can be used while running the game to inspect game state etc
+* Explicit random, be able to reproduce all situations
