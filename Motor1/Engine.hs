@@ -22,7 +22,8 @@ data WindowSettings = WindowSettings {
     _title :: String,
     _size :: (Int, Int),
     _quitWithEscape :: Bool,
-    _knobsFile :: String
+    _knobsFile :: String,
+    _backgroundColor :: Color4 GLclampf
 } deriving (Eq, Show)
 
 runEngine :: Read knobT => WindowSettings -> knobT -> a -> (knobT -> a -> IO ()) -> (knobT -> a -> Double -> a) -> IO ()
@@ -46,6 +47,7 @@ runEngine windowSettings defaultKnobs initialState renderFunction updateFunction
             Nothing -> G.terminate >> exitFailure
             Just win -> do G.makeContextCurrent mw
                            G.setKeyCallback win (Just (keyCallback quitWithEscape))
+                           clearColor $= _backgroundColor windowSettings
                            Just t <- G.getTime
                            mainLoop win initialState renderFunction updateFunction knobs t
                            G.destroyWindow win

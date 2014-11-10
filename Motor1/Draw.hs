@@ -1,4 +1,4 @@
-module Draw(line) where
+module Draw(line,rgbColor,rgbaColor) where
 
 import Graphics.Rendering.OpenGL
 
@@ -7,8 +7,11 @@ type Point = (Double, Double)
 rgbColor :: Double -> Double -> Double -> Color3 GLdouble
 rgbColor r g b = Color3 (realToFrac r) (realToFrac g) (realToFrac b) :: Color3 GLdouble
 
-black, white :: Color3 GLdouble
-black = rgbColor 0 0 0
+rgbaColor :: Double -> Double -> Double -> Double -> Color4 GLclampf
+rgbaColor r g b a = Color4 (realToFrac r) (realToFrac g) (realToFrac b) (realToFrac a) :: Color4 GLclampf
+
+white :: Color3 GLdouble
+--black = rgbColor 0 0 0
 white = rgbColor 1 1 1
 
 line :: Point -> Point -> IO ()
