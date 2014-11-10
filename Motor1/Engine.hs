@@ -1,11 +1,15 @@
+{-# LANGUAGE OverloadedStrings #-} -- for FilePath literals
+
 module Engine(runEngine, WindowSettings(..)) where
 
-import Control.Monad (unless, when)
+import Control.Monad (unless, when, forever)
 import Graphics.Rendering.OpenGL
 import qualified Graphics.UI.GLFW as G
 import System.Exit
 import System.IO
-   
+import System.FSNotify
+import Control.Concurrent (threadDelay, forkIO)
+
 -- type ErrorCallback = Error -> String -> IO ()
 errorCallback :: G.ErrorCallback
 errorCallback _ = hPutStrLn stderr
@@ -21,8 +25,21 @@ data WindowSettings = WindowSettings {
     _quitWithEscape :: Bool
 } deriving (Eq, Show)
 
+wasModified :: ActionPredicate
+wasModified (Modified _ _) = True
+wasModified _ = False
+
+startWatching :: IO ()
+startWatching =
+    withManager $ \mgr -> do
+        _ <- watchDir mgr "." wasModified print
+        forever $ threadDelay 5
+
 runEngine :: WindowSettings -> a -> (a -> IO ()) -> (Double -> a -> a) -> IO ()
 runEngine settings initialState renderFunction updateFunction = do
+
+    _ <- forkIO startWatching
+
     G.setErrorCallback (Just errorCallback)
     successfulInit <- G.init
     if successfulInit then do

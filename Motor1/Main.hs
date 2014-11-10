@@ -1,21 +1,20 @@
+{-# LANGUAGE OverloadedStrings #-} -- for FilePath literals
+
 module Main where
 
 import Engine;
 import Draw;
 
 main :: IO ()
-main = tailspin
+main = runEngine (WindowSettings "MOTOR" (500, 500) True) initState render update
 
-tailspin :: IO ()
-tailspin = runEngine (WindowSettings "MOTOR" (500, 500) True) initState render update
+type GameState = Double
 
-type State = Double
-
-initState :: State
+initState :: GameState
 initState = 0.0
 
-render :: State -> IO ()
+render :: GameState -> IO ()
 render state = line (0, 0) (cos state, 0.5)
 
-update :: Double -> State -> State
+update :: Double -> GameState -> GameState
 update dt state = state + dt * 2.0
