@@ -8,7 +8,9 @@ import qualified Graphics.UI.GLFW as G
 import System.Exit
 import System.IO
 import System.FSNotify
+import Filesystem.Path.CurrentOS
 import Control.Concurrent (threadDelay, forkIO)
+import Data.IORef
 
 -- type ErrorCallback = Error -> String -> IO ()
 errorCallback :: G.ErrorCallback
@@ -25,41 +27,59 @@ data WindowSettings = WindowSettings {
     _quitWithEscape :: Bool
 } deriving (Eq, Show)
 
-wasModified :: ActionPredicate
-wasModified (Modified _ _) = True
-wasModified _ = False
+wasItModified :: ActionPredicate
+wasItModified (Modified _ _) = True
+wasItModified _ = False
 
-startWatching :: IO ()
-startWatching =
+readKnobSettings :: String -> IORef Double -> IO ()
+readKnobSettings path knobs = do
+    handle <- openFile path ReadMode  
+    contents <- hGetContents handle  
+    let newValue = read contents :: Double
+    writeIORef knobs newValue
+    hClose handle
+
+onModified :: IORef Double -> Action
+onModified knobs (Modified path _) =
+    --putStrLn $ show path ++ " was modified"
+    when (filename path == "data.txt") $ readKnobSettings (encodeString path) knobs
+        
+onModified _ _ = return ()
+
+startWatching :: IORef Double -> IO ()
+startWatching knobs =
     withManager $ \mgr -> do
-        _ <- watchDir mgr "." wasModified print
+        _ <- watchDir mgr "." wasItModified (onModified knobs)
         forever $ threadDelay 5
 
-runEngine :: WindowSettings -> a -> (a -> IO ()) -> (Double -> a -> a) -> IO ()
-runEngine settings initialState renderFunction updateFunction = do
+runEngine :: WindowSettings -> a -> (a -> IO ()) -> (Double -> Double -> a -> a) -> IO ()
+runEngine windowSettings initialState renderFunction updateFunction = do
 
-    _ <- forkIO startWatching
+    knobs <- newIORef (0.0 :: Double)
+    readKnobSettings "data.txt" knobs
+
+    _ <- forkIO (startWatching knobs)
 
     G.setErrorCallback (Just errorCallback)
     successfulInit <- G.init
     if successfulInit then do
-        let (width,height) = _size settings
-            title = _title settings
-            quitWithEscape = _quitWithEscape settings
+        let (width,height) = _size windowSettings
+            title = _title windowSettings
+            quitWithEscape = _quitWithEscape windowSettings
         mw <- G.createWindow width height title Nothing Nothing
         case mw of
             Nothing -> G.terminate >> exitFailure
             Just win -> do G.makeContextCurrent mw
                            G.setKeyCallback win (Just (keyCallback quitWithEscape))
                            Just t <- G.getTime
-                           mainLoop win initialState renderFunction updateFunction t
+                           mainLoop win initialState renderFunction updateFunction knobs t
                            G.destroyWindow win
                            G.terminate
                            exitSuccess
     else exitFailure
           
-mainLoop :: G.Window -> a -> (a -> IO ()) -> (Double -> a -> a) -> Double -> IO ()
-mainLoop window state renderFunction updateFunction lastT = do
+mainLoop :: G.Window -> a -> (a -> IO ()) -> (Double -> Double -> a -> a) -> IORef Double -> Double -> IO ()
+mainLoop window state renderFunction updateFunction knobs lastT = do
     close <- G.windowShouldClose window
     unless close $ do
         (width, height) <- G.getFramebufferSize window
@@ -72,11 +92,12 @@ mainLoop window state renderFunction updateFunction lastT = do
         matrixMode $= Modelview 0
         loadIdentity
         Just t <- G.getTime
+        knobState <- readIORef knobs
         let dt = t - lastT
             lastT' = t
-            state' = updateFunction dt state
+            state' = updateFunction knobState dt state
         --putStrLn $ "dt: " ++ show dt
         renderFunction state        
         G.swapBuffers window
         G.pollEvents
-        mainLoop window state' renderFunction updateFunction lastT'
+        mainLoop window state' renderFunction updateFunction knobs lastT'
