@@ -1,16 +1,13 @@
-{-# LANGUAGE OverloadedStrings #-} -- for FilePath literals
-
 module Engine(runEngine, WindowSettings(..)) where
 
-import Control.Monad (unless, when, forever)
+import Control.Monad (unless, when)
 import Graphics.Rendering.OpenGL
 import qualified Graphics.UI.GLFW as G
 import System.Exit
 import System.IO
-import System.FSNotify
-import Filesystem.Path.CurrentOS
-import Control.Concurrent (threadDelay, forkIO)
 import Data.IORef
+import Control.Concurrent (forkIO)
+import Knobs
 
 -- type ErrorCallback = Error -> String -> IO ()
 errorCallback :: G.ErrorCallback
@@ -24,41 +21,19 @@ keyCallback quitWithEscape window key _ keyState _ =
 data WindowSettings = WindowSettings {
     _title :: String,
     _size :: (Int, Int),
-    _quitWithEscape :: Bool
+    _quitWithEscape :: Bool,
+    _knobsFile :: String
 } deriving (Eq, Show)
-
-wasItModified :: ActionPredicate
-wasItModified (Modified _ _) = True
-wasItModified _ = False
-
-readKnobSettings :: String -> IORef Double -> IO ()
-readKnobSettings path knobs = do
-    handle <- openFile path ReadMode  
-    contents <- hGetContents handle  
-    let newValue = read contents :: Double
-    writeIORef knobs newValue
-    hClose handle
-
-onModified :: IORef Double -> Action
-onModified knobs (Modified path _) =
-    --putStrLn $ show path ++ " was modified"
-    when (filename path == "data.txt") $ readKnobSettings (encodeString path) knobs
-        
-onModified _ _ = return ()
-
-startWatching :: IORef Double -> IO ()
-startWatching knobs =
-    withManager $ \mgr -> do
-        _ <- watchDir mgr "." wasItModified (onModified knobs)
-        forever $ threadDelay 5
 
 runEngine :: WindowSettings -> a -> (a -> IO ()) -> (Double -> Double -> a -> a) -> IO ()
 runEngine windowSettings initialState renderFunction updateFunction = do
 
     knobs <- newIORef (0.0 :: Double)
-    readKnobSettings "data.txt" knobs
 
-    _ <- forkIO (startWatching knobs)
+    let knobsFile = _knobsFile windowSettings
+    readKnobsSettings knobsFile knobs
+
+    _ <- forkIO (startWatching knobs knobsFile)
 
     G.setErrorCallback (Just errorCallback)
     successfulInit <- G.init

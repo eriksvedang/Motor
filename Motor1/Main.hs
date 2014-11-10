@@ -1,12 +1,11 @@
-{-# LANGUAGE OverloadedStrings #-} -- for FilePath literals
-
 module Main where
 
 import Engine;
 import Draw;
 
 main :: IO ()
-main = runEngine (WindowSettings "MOTOR" (500, 500) True) initState render update
+main = runEngine settings initState render update
+    where settings = WindowSettings "MOTOR" (500, 500) True "knobs.txt"
 
 type GameState = Double
 
