@@ -26,17 +26,17 @@ data EngineSettings = EngineSettings {
     _backgroundColor :: Color4 GLclampf
 } deriving (Eq, Show)
 
+-- k is knobs type
+-- s is game state type
 type RenderFn k s = (k -> s -> IO ())
 type UpdateFn k s = (k -> s -> Double -> s)
 
 runEngine :: Read k => EngineSettings -> k -> s -> RenderFn k s -> UpdateFn k s -> IO ()
-runEngine engineSettings defaultKnobs initialState renderFunction updateFunction = do
+runEngine engineSettings defaultKnobs initialGameState renderFunction updateFunction = do
 
     knobs <- newIORef defaultKnobs
-
     let knobsFile = _knobsFile engineSettings
     readKnobsSettings knobsFile knobs
-
     _ <- forkIO (startWatching knobs knobsFile)
 
     G.setErrorCallback (Just errorCallback)
@@ -52,7 +52,7 @@ runEngine engineSettings defaultKnobs initialState renderFunction updateFunction
                            G.setKeyCallback win (Just (keyCallback quitWithEscape))
                            clearColor $= _backgroundColor engineSettings
                            Just t <- G.getTime
-                           mainLoop win initialState renderFunction updateFunction knobs t
+                           mainLoop win initialGameState renderFunction updateFunction knobs t
                            G.destroyWindow win
                            G.terminate
                            exitSuccess
@@ -62,6 +62,13 @@ mainLoop :: Read k => G.Window -> s -> RenderFn k s -> UpdateFn k s -> IORef k -
 mainLoop window state renderFunction updateFunction knobs lastT = do
     close <- G.windowShouldClose window
     unless close $ do
+        -- Update
+        Just t <- G.getTime
+        knobState <- readIORef knobs
+        let dt = t - lastT
+            lastT' = t
+            newGameState = updateFunction knobState state dt
+        -- Render
         (width, height) <- G.getFramebufferSize window
         let ratio = fromIntegral width / fromIntegral height
         viewport $= (Position 0 0, Size (fromIntegral width) (fromIntegral height))
@@ -71,13 +78,8 @@ mainLoop window state renderFunction updateFunction knobs lastT = do
         ortho (negate ratio) ratio (negate 1.0) 1.0 1.0 (negate 1.0)
         matrixMode $= Modelview 0
         loadIdentity
-        Just t <- G.getTime
-        knobState <- readIORef knobs
-        let dt = t - lastT
-            lastT' = t
-            state' = updateFunction knobState state dt
         --putStrLn $ "dt: " ++ show dt
-        renderFunction knobState state        
+        renderFunction knobState state     
         G.swapBuffers window
         G.pollEvents
-        mainLoop window state' renderFunction updateFunction knobs lastT'
+        mainLoop window newGameState renderFunction updateFunction knobs lastT'
