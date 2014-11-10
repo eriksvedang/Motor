@@ -11,30 +11,29 @@ errorCallback :: G.ErrorCallback
 errorCallback _ = hPutStrLn stderr
 
 -- type KeyCallback = Window -> Key -> Int -> KeyState -> ModifierKeys -> IO ()
---                    window    key    scancode action    mods
-keyCallback :: G.KeyCallback
-keyCallback window key _ keyState _ = 
-    when (key == G.Key'Escape && keyState == G.KeyState'Pressed) $ G.setWindowShouldClose window True
+keyCallback :: Bool -> G.KeyCallback
+keyCallback quitWithEscape window key _ keyState _ = 
+    when (quitWithEscape && key == G.Key'Escape && keyState == G.KeyState'Pressed) $ G.setWindowShouldClose window True
 
 data WindowSettings = WindowSettings {
     _title :: String,
-    _size :: (Int, Int)
+    _size :: (Int, Int),
+    _quitWithEscape :: Bool
 } deriving (Eq, Show)
 
---type RenderFunction = a -> IO ()
-
 runEngine :: WindowSettings -> a -> (a -> IO ()) -> (Double -> a -> a) -> IO ()
-runEngine windowSettings initialState renderFunction updateFunction = do
+runEngine settings initialState renderFunction updateFunction = do
     G.setErrorCallback (Just errorCallback)
     successfulInit <- G.init
     if successfulInit then do
-        let (width,height) = _size windowSettings
-            title = _title windowSettings
+        let (width,height) = _size settings
+            title = _title settings
+            quitWithEscape = _quitWithEscape settings
         mw <- G.createWindow width height title Nothing Nothing
         case mw of
             Nothing -> G.terminate >> exitFailure
             Just win -> do G.makeContextCurrent mw
-                           G.setKeyCallback win (Just keyCallback)
+                           G.setKeyCallback win (Just (keyCallback quitWithEscape))
                            Just t <- G.getTime
                            mainLoop win initialState renderFunction updateFunction t
                            G.destroyWindow win

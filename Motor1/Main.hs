@@ -1,26 +1,21 @@
 module Main where
 
 import Engine;
-import Graphics.Rendering.OpenGL
+import Draw;
 
 main :: IO ()
-main = runEngine (WindowSettings "MOTOR" (500, 500)) initState render update
+main = tailspin
+
+tailspin :: IO ()
+tailspin = runEngine (WindowSettings "MOTOR" (500, 500) True) initState render update
 
 type State = Double
 
 initState :: State
-initState = 10.0
+initState = 0.0
 
 render :: State -> IO ()
-render state = do
-    rotate (realToFrac state * 50) (Vector3 0 0 1 :: Vector3 GLdouble)
-    renderPrimitive Triangles $ do
-        color  (Color3 1 1 0 :: Color3 GLdouble)
-        vertex (Vertex3 (negate 0.6) (negate 0.4) 0 :: Vertex3 GLdouble)
-        color  (Color3 0 1 0 :: Color3 GLdouble)
-        vertex (Vertex3 0.6 (negate 0.4) 0 :: Vertex3 GLdouble)
-        color  (Color3 0 1 1 :: Color3 GLdouble)
-        vertex (Vertex3 0 0.6 0 :: Vertex3 GLdouble)
+render state = line (0, 0) (cos state, 0.5)
 
 update :: Double -> State -> State
-update dt state = state + dt * 1.0
+update dt state = state + dt * 2.0
