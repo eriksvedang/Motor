@@ -63,8 +63,8 @@ mainLoop window state renderFunction updateFunction knobs lastT = do
     close <- G.windowShouldClose window
     unless close $ do
         -- Update
-        Just t <- G.getTime
         knobState <- readIORef knobs
+        Just t <- G.getTime
         let dt = t - lastT
             lastT' = t
             newGameState = updateFunction knobState state dt
