@@ -6,7 +6,7 @@ import Data.Maybe
 
 main :: IO ()
 main = runEngine settings [] initState render update
-    where settings = WindowSettings "MOTOR" (500, 500) True "knobs.txt" darkGray
+    where settings = EngineSettings "MOTOR" (500, 500) True "knobs.txt" darkGray
           darkGray = rgbaColor 0.2 0.2 0.2 1.0
 
 type GameState = Double

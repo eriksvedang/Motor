@@ -1,4 +1,4 @@
-module Engine(runEngine, WindowSettings(..)) where
+module Engine(runEngine, EngineSettings(..)) where
 
 import Control.Monad (unless, when)
 import Graphics.Rendering.OpenGL
@@ -18,7 +18,7 @@ keyCallback :: Bool -> G.KeyCallback
 keyCallback quitWithEscape window key _ keyState _ = 
     when (quitWithEscape && key == G.Key'Escape && keyState == G.KeyState'Pressed) $ G.setWindowShouldClose window True
 
-data WindowSettings = WindowSettings {
+data EngineSettings = EngineSettings {
     _title :: String,
     _size :: (Int, Int),
     _quitWithEscape :: Bool,
@@ -26,12 +26,15 @@ data WindowSettings = WindowSettings {
     _backgroundColor :: Color4 GLclampf
 } deriving (Eq, Show)
 
-runEngine :: Read knobT => WindowSettings -> knobT -> a -> (knobT -> a -> IO ()) -> (knobT -> a -> Double -> a) -> IO ()
-runEngine windowSettings defaultKnobs initialState renderFunction updateFunction = do
+type RenderFn k s = (k -> s -> IO ())
+type UpdateFn k s = (k -> s -> Double -> s)
+
+runEngine :: Read k => EngineSettings -> k -> s -> RenderFn k s -> UpdateFn k s -> IO ()
+runEngine engineSettings defaultKnobs initialState renderFunction updateFunction = do
 
     knobs <- newIORef defaultKnobs
 
-    let knobsFile = _knobsFile windowSettings
+    let knobsFile = _knobsFile engineSettings
     readKnobsSettings knobsFile knobs
 
     _ <- forkIO (startWatching knobs knobsFile)
@@ -39,15 +42,15 @@ runEngine windowSettings defaultKnobs initialState renderFunction updateFunction
     G.setErrorCallback (Just errorCallback)
     successfulInit <- G.init
     if successfulInit then do
-        let (width,height) = _size windowSettings
-            title = _title windowSettings
-            quitWithEscape = _quitWithEscape windowSettings
+        let (width,height) = _size engineSettings
+            title = _title engineSettings
+            quitWithEscape = _quitWithEscape engineSettings
         mw <- G.createWindow width height title Nothing Nothing
         case mw of
             Nothing -> G.terminate >> exitFailure
             Just win -> do G.makeContextCurrent mw
                            G.setKeyCallback win (Just (keyCallback quitWithEscape))
-                           clearColor $= _backgroundColor windowSettings
+                           clearColor $= _backgroundColor engineSettings
                            Just t <- G.getTime
                            mainLoop win initialState renderFunction updateFunction knobs t
                            G.destroyWindow win
@@ -55,7 +58,7 @@ runEngine windowSettings defaultKnobs initialState renderFunction updateFunction
                            exitSuccess
     else exitFailure
           
-mainLoop :: Read knobT => G.Window -> a -> (knobT -> a -> IO ()) -> (knobT -> a -> Double -> a) -> IORef knobT -> Double -> IO ()
+mainLoop :: Read k => G.Window -> s -> RenderFn k s -> UpdateFn k s -> IORef k -> Double -> IO ()
 mainLoop window state renderFunction updateFunction knobs lastT = do
     close <- G.windowShouldClose window
     unless close $ do

@@ -18,7 +18,7 @@ readKnobsSettings :: Read a => String -> IORef a -> IO ()
 readKnobsSettings path knobs = do
     handle <- openFile path ReadMode  
     contents <- hGetContents handle
-    putStrLn $ "Read: " ++ contents
+    putStrLn $ " - New knobs - \n" ++ contents
     let newValue = read contents
     writeIORef knobs newValue
     hClose handle
