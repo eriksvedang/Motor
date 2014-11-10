@@ -1,11 +1,10 @@
-module Main where
+module TailspinTwo where
 
 import Engine;
 import Draw;
-import Data.Maybe
 
-main :: IO ()
-main = runEngine settings [] initState render update
+tailspinTwo :: IO ()
+tailspinTwo = runEngine settings [] initState render update
     where settings = EngineSettings "MOTOR" (500, 500) True "knobs.txt" darkGray
           darkGray = rgbaColor 0.2 0.2 0.2 1.0
 
@@ -13,7 +12,7 @@ type GameState = [(Double, Double)]
 type KnobType = [(String, Double)]
 
 initState :: GameState
-initState = zip (repeat 0.0) [0.0, 0.05 .. 0.9]
+initState = zip (repeat 0.0) [0.0, 0.02 .. 0.9]
 
 render :: KnobType -> GameState -> IO ()
 render _ state = sequence_ (arm state)
