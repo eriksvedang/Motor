@@ -25,10 +25,10 @@ data WindowSettings = WindowSettings {
     _knobsFile :: String
 } deriving (Eq, Show)
 
-runEngine :: WindowSettings -> a -> (a -> IO ()) -> (Double -> Double -> a -> a) -> IO ()
-runEngine windowSettings initialState renderFunction updateFunction = do
+runEngine :: Read knobT => WindowSettings -> knobT -> a -> (knobT -> a -> IO ()) -> (knobT -> a -> Double -> a) -> IO ()
+runEngine windowSettings defaultKnobs initialState renderFunction updateFunction = do
 
-    knobs <- newIORef (0.0 :: Double)
+    knobs <- newIORef defaultKnobs
 
     let knobsFile = _knobsFile windowSettings
     readKnobsSettings knobsFile knobs
@@ -53,7 +53,7 @@ runEngine windowSettings initialState renderFunction updateFunction = do
                            exitSuccess
     else exitFailure
           
-mainLoop :: G.Window -> a -> (a -> IO ()) -> (Double -> Double -> a -> a) -> IORef Double -> Double -> IO ()
+mainLoop :: Read knobT => G.Window -> a -> (knobT -> a -> IO ()) -> (knobT -> a -> Double -> a) -> IORef knobT -> Double -> IO ()
 mainLoop window state renderFunction updateFunction knobs lastT = do
     close <- G.windowShouldClose window
     unless close $ do
@@ -70,9 +70,9 @@ mainLoop window state renderFunction updateFunction knobs lastT = do
         knobState <- readIORef knobs
         let dt = t - lastT
             lastT' = t
-            state' = updateFunction knobState dt state
+            state' = updateFunction knobState state dt
         --putStrLn $ "dt: " ++ show dt
-        renderFunction state        
+        renderFunction knobState state        
         G.swapBuffers window
         G.pollEvents
         mainLoop window state' renderFunction updateFunction knobs lastT'

@@ -2,9 +2,10 @@ module Main where
 
 import Engine;
 import Draw;
+import Data.Maybe
 
 main :: IO ()
-main = runEngine settings initState render update
+main = runEngine settings [] initState render update
     where settings = WindowSettings "MOTOR" (500, 500) True "knobs.txt"
 
 type GameState = Double
@@ -12,8 +13,12 @@ type GameState = Double
 initState :: GameState
 initState = 0.0
 
-render :: GameState -> IO ()
-render state = line (0, 0) (cos state, 0.5)
+render :: KnobType -> GameState -> IO ()
+render knobs state = line (0, 0) (cos state, w)
+    where w = fromJust $ lookup "width" knobs
 
-update :: Double -> Double -> GameState -> GameState
-update knobs dt state = state + dt * knobs
+type KnobType = [(String, Double)]
+
+update :: KnobType -> GameState -> Double -> GameState
+update knobs state dt = state + dt * speed
+    where speed = fromJust $ lookup "speed" knobs
