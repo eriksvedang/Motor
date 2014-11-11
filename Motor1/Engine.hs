@@ -8,6 +8,7 @@ import System.IO
 import Data.IORef
 import Control.Concurrent (forkIO)
 import Knobs
+import Scene
 
 -- type ErrorCallback = Error -> String -> IO ()
 errorCallback :: G.ErrorCallback
@@ -28,11 +29,11 @@ data EngineSettings = EngineSettings {
 
 -- k is knobs type
 -- s is game state type
-type RenderFn k s = (k -> s -> IO ())
-type UpdateFn k s = (k -> s -> Double -> s)
+-- type RenderFn k s = (k -> s -> IO ())
+-- type UpdateFn k s = (k -> s -> Double -> s)
 
-runEngine :: Read k => EngineSettings -> k -> s -> RenderFn k s -> UpdateFn k s -> IO ()
-runEngine engineSettings defaultKnobs initialGameState renderFunction updateFunction = do
+runEngine :: (Eq n, Read k) => EngineSettings -> k -> s -> SceneManager n s -> IO ()
+runEngine engineSettings defaultKnobs initialGameState sceneManager = do
 
     knobs <- newIORef defaultKnobs
     let knobsFile = _knobsFile engineSettings
@@ -52,14 +53,14 @@ runEngine engineSettings defaultKnobs initialGameState renderFunction updateFunc
                            G.setKeyCallback win (Just (keyCallback quitWithEscape))
                            clearColor $= _backgroundColor engineSettings
                            Just t <- G.getTime
-                           mainLoop win initialGameState renderFunction updateFunction knobs t
+                           mainLoop win initialGameState sceneManager knobs t
                            G.destroyWindow win
                            G.terminate
                            exitSuccess
     else exitFailure
           
-mainLoop :: Read k => G.Window -> s -> RenderFn k s -> UpdateFn k s -> IORef k -> Double -> IO ()
-mainLoop window state renderFunction updateFunction knobs lastT = do
+mainLoop :: (Eq n, Read k) => G.Window -> s -> SceneManager n s -> IORef k -> Double -> IO ()
+mainLoop window state sceneManager knobs lastT = do
     close <- G.windowShouldClose window
     unless close $ do
         -- Update
@@ -67,7 +68,8 @@ mainLoop window state renderFunction updateFunction knobs lastT = do
         Just t <- G.getTime
         let dt = t - lastT
             lastT' = t
-            newGameState = updateFunction knobState state dt
+            --newGameState = updateFunction knobState state dt
+            newGameState = updateSceneManager sceneManager state
         -- Render
         (width, height) <- G.getFramebufferSize window
         let ratio = fromIntegral width / fromIntegral height
@@ -79,7 +81,8 @@ mainLoop window state renderFunction updateFunction knobs lastT = do
         matrixMode $= Modelview 0
         loadIdentity
         --putStrLn $ "dt: " ++ show dt
-        renderFunction knobState state     
+        --renderFunction knobState state
+        renderSceneManager sceneManager state
         G.swapBuffers window
         G.pollEvents
-        mainLoop window newGameState renderFunction updateFunction knobs lastT'
+        mainLoop window newGameState sceneManager knobs lastT'
