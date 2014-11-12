@@ -1,6 +1,6 @@
 module Engine(runEngine, EngineSettings(..)) where
 
-import Control.Monad (unless, when)
+import Control.Monad (unless, when, foldM)
 import Graphics.Rendering.OpenGL
 import qualified Graphics.UI.GLFW as G
 import System.Exit
@@ -9,6 +9,7 @@ import Data.IORef
 import Control.Concurrent (forkIO)
 import Knobs
 import Scene
+import Event
 
 -- type ErrorCallback = Error -> String -> IO ()
 errorCallback :: G.ErrorCallback
@@ -18,6 +19,7 @@ errorCallback _ = hPutStrLn stderr
 keyCallback :: Bool -> G.KeyCallback
 keyCallback quitWithEscape window key _ keyState _ = 
     when (quitWithEscape && key == G.Key'Escape && keyState == G.KeyState'Pressed) $ G.setWindowShouldClose window True
+
 
 data EngineSettings = EngineSettings {
     _title :: String,
@@ -63,7 +65,12 @@ mainLoop window state sceneManager knobs lastT = do
         Just t <- G.getTime
         let dt = t - lastT
             lastT' = t
-            newGameState = updateSceneManager sceneManager state knobState dt
+            (newGameState, events) =
+                updateSceneManager sceneManager state knobState dt
+
+        (newGameState', sceneManager', close') <-
+            foldM (processEvent window) (newGameState, sceneManager, False) events
+
         -- Render
         (width, height) <- G.getFramebufferSize window
         let ratio = fromIntegral width / fromIntegral height
@@ -74,8 +81,14 @@ mainLoop window state sceneManager knobs lastT = do
         ortho (negate ratio) ratio (negate 1.0) 1.0 1.0 (negate 1.0)
         matrixMode $= Modelview 0
         loadIdentity
-        --putStrLn $ "dt: " ++ show dt
         renderSceneManager sceneManager state knobState
         G.swapBuffers window
         G.pollEvents
-        mainLoop window newGameState sceneManager knobs lastT'
+        unless close' $ mainLoop window newGameState' sceneManager' knobs lastT'
+
+processEvent :: G.Window -> (g, SceneManager g k, Bool) -> Event -> IO (g, SceneManager g k, Bool)
+processEvent window (g, mgr, quit) event = case event of
+    (ChangeScene newSceneName) -> return (g, setScene mgr newSceneName, quit)
+    SetWindowSize (w, h) -> do G.setWindowSize window w h
+                               return (g, mgr, quit)
+    Quit -> return (g, mgr, True)

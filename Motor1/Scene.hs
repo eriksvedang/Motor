@@ -5,13 +5,14 @@ module Scene(SceneManager(..),
              renderSceneManager) where
 
 import Data.Maybe
+import Event
 
 -- g = game state type
 -- k = knobs type
 
 data Scene g k = Scene {
     renderFn :: g -> k -> IO (),
-    updateFn :: g -> k -> Double -> g
+    updateFn :: g -> k -> Double -> (g, [Event])
 }
 
 data SceneManager g k = SceneManager {
@@ -33,6 +34,6 @@ useSceneManager selector sceneManager gameState =
 renderSceneManager :: SceneManager g k -> g -> k -> IO ()
 renderSceneManager = useSceneManager renderFn
 
-updateSceneManager :: SceneManager g k -> g -> k -> Double -> g
+updateSceneManager :: SceneManager g k -> g -> k -> Double -> (g, [Event])
 updateSceneManager = useSceneManager updateFn
 
