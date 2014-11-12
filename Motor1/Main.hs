@@ -23,8 +23,11 @@ sceneA = Scene (\_ _ -> line (0,0) (0.3,0.2))
                (\g _ _ -> g)
 
 sceneB :: Scene GameState KnobType
-sceneB = Scene (\g _ -> line (0, sin (t g)) (negate 0.5, 0.0)) 
+sceneB = Scene renderSceneB
                updateSceneB
+
+renderSceneB :: GameState -> KnobType -> IO ()
+renderSceneB gameState _ = line (0, sin (t gameState)) (negate 0.5, 0.0)
 
 updateSceneB :: GameState -> KnobType -> Double -> GameState
 updateSceneB gameState knobs dt = gameState { t = t gameState + speed * dt }
