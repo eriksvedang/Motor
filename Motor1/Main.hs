@@ -8,7 +8,7 @@ import Scene
 main :: IO ()
 main = runEngine settings defaultKnobs initState sceneManager
     where settings = EngineSettings "MOTOR" (500, 500) True "knobs.txt" bgColor
-          sceneManager = SceneManager [("a", sceneA), ("b", sceneB)] "c"
+          sceneManager = SceneManager [("a", sceneA), ("b", sceneB)] "b"
           bgColor = rgbaColor 0.2 0.2 0.2 1.0
           defaultKnobs = []::KnobType
 
