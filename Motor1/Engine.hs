@@ -27,12 +27,7 @@ data EngineSettings = EngineSettings {
     _backgroundColor :: Color4 GLclampf
 } deriving (Eq, Show)
 
--- k is knobs type
--- s is game state type
--- type RenderFn k s = (k -> s -> IO ())
--- type UpdateFn k s = (k -> s -> Double -> s)
-
-runEngine :: (Eq n, Read k) => EngineSettings -> k -> s -> SceneManager n s -> IO ()
+runEngine :: Read k => EngineSettings -> k -> g -> SceneManager g k -> IO ()
 runEngine engineSettings defaultKnobs initialGameState sceneManager = do
 
     knobs <- newIORef defaultKnobs
@@ -59,7 +54,7 @@ runEngine engineSettings defaultKnobs initialGameState sceneManager = do
                            exitSuccess
     else exitFailure
           
-mainLoop :: (Eq n, Read k) => G.Window -> s -> SceneManager n s -> IORef k -> Double -> IO ()
+mainLoop :: Read k => G.Window -> g -> SceneManager g k -> IORef k -> Double -> IO ()
 mainLoop window state sceneManager knobs lastT = do
     close <- G.windowShouldClose window
     unless close $ do
@@ -68,8 +63,7 @@ mainLoop window state sceneManager knobs lastT = do
         Just t <- G.getTime
         let dt = t - lastT
             lastT' = t
-            --newGameState = updateFunction knobState state dt
-            newGameState = updateSceneManager sceneManager state
+            newGameState = updateSceneManager sceneManager state knobState dt
         -- Render
         (width, height) <- G.getFramebufferSize window
         let ratio = fromIntegral width / fromIntegral height
@@ -81,8 +75,7 @@ mainLoop window state sceneManager knobs lastT = do
         matrixMode $= Modelview 0
         loadIdentity
         --putStrLn $ "dt: " ++ show dt
-        --renderFunction knobState state
-        renderSceneManager sceneManager state
+        renderSceneManager sceneManager state knobState
         G.swapBuffers window
         G.pollEvents
         mainLoop window newGameState sceneManager knobs lastT'
