@@ -2,50 +2,30 @@ module Main where
 
 import Engine
 import Draw
-import Data.Maybe
-import Scene
-import Event
+import Control.Monad.State
+import Knobs
 
 main :: IO ()
-main = runEngine settings defaultKnobs initState sceneManager
-    where settings = EngineSettings "MOTOR" (500, 500) True "knobs.txt" bgColor
-          sceneManager = SceneManager [("a", sceneA), ("b", sceneB)] "a"
-          bgColor = rgbaColor 0.2 0.2 0.2 1.0
-          defaultKnobs = []::KnobType
+main = do 
+    knobsRef <- watchAsync [] "knobs.txt"
+    runEngine def (GameState 0.0 knobsRef) update render
 
-type KnobType = [(String, Double)]
+type KnobsRef = IORef [(String, Double)]
 
 data GameState = GameState {
-    t :: Double
+    t :: Double,
+    r :: KnobsRef
 }
 
-initState :: GameState
-initState = GameState 0.0
+update :: UpdateFn GameState
+update dt = do s <- get
+               speed <- liftIO $ readSetting "speed" (r s)
+               modify (passTime $ dt * speed)
+               when (t s > 1.0) $ put (GameState 0.0 (r s))
 
+passTime :: Double -> GameState -> GameState
+passTime dt s = s { t = t s + dt }
 
-sceneA :: Scene GameState KnobType
-sceneA = Scene renderSceneA
-               updateSceneA
-renderSceneA :: GameState -> KnobType -> IO ()
-renderSceneA gameState _ = line (0, 0) (t gameState / 10.0, 0)
-
-updateSceneA :: GameState -> KnobType -> Double -> (GameState, [Event])
-updateSceneA gameState _ dt = 
-    (gameState { t = t gameState + dt }, 
-     if t gameState < 3.0 then [] else [ChangeScene "b", SetWindowSize (200, 200)])
-
-
-sceneB :: Scene GameState KnobType
-sceneB = Scene renderSceneB
-               updateSceneB
-
-renderSceneB :: GameState -> KnobType -> IO ()
-renderSceneB gameState _ = line (0, sin (t gameState)) (negate 0.5, 0.0)
-
-updateSceneB :: GameState -> KnobType -> Double -> (GameState, [Event])
-updateSceneB gameState knobs dt = 
-    (gameState { t = t gameState + speed * dt }, events)
-        where speed = fromJust $ lookup "speed" knobs
-              events = if t gameState < 7.0 then [] else [Quit]
-
-
+render :: RenderFn GameState
+render = do s <- ask
+            liftIO $ line (0,0) (t s, 0)
