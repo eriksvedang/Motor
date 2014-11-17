@@ -6,13 +6,17 @@ module Scene(SceneManager(..),
 
 import Data.Maybe
 import Event
+import Control.Monad.State
+import Control.Monad.Identity
 
 -- g = game state type
 -- k = knobs type
 
+type MotorUpdate a = StateT a Identity
+
 data Scene g k = Scene {
     renderFn :: g -> k -> IO (),
-    updateFn :: g -> k -> Double -> (g, [Event])
+    updateFn :: g -> MotorUpdate k (g, [Event])
 }
 
 data SceneManager g k = SceneManager {
@@ -34,6 +38,6 @@ useSceneManager selector sceneManager gameState =
 renderSceneManager :: SceneManager g k -> g -> k -> IO ()
 renderSceneManager = useSceneManager renderFn
 
-updateSceneManager :: SceneManager g k -> g -> k -> Double -> (g, [Event])
+updateSceneManager :: SceneManager g k -> g -> k -> Double -> MotorUpdate k (g, [Event])
 updateSceneManager = useSceneManager updateFn
 
