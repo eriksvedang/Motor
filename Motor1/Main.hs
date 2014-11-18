@@ -2,8 +2,9 @@ module Main where
 
 import Engine
 import Draw
-import Control.Monad.State
 import Knobs
+import Control.Monad.State
+-- import qualified Graphics.UI.GLFW as G
 
 main :: IO ()
 main = do 
@@ -19,9 +20,10 @@ data GameState = GameState {
 
 update :: UpdateFn GameState
 update dt = do s <- get
-               speed <- liftIO $ readSetting "speed" (r s)
+               let knobsRef = r s
+               speed <- liftIO $ readSetting "speed" knobsRef
                modify (passTime $ dt * speed)
-               when (t s > 1.0) $ put (GameState 0.0 (r s))
+               when (t s > 1.0) $ put (GameState 0.0 knobsRef)
 
 passTime :: Double -> GameState -> GameState
 passTime dt s = s { t = t s + dt }

@@ -10,7 +10,7 @@ import Control.Monad (when, forever)
 import System.FSNotify
 import Filesystem.Path.CurrentOS
 import Control.Concurrent (threadDelay, forkIO)
-import System.IO
+import System.IO (hClose, openFile, IOMode(..), hGetContents)
 import Data.IORef
 import Data.Text
 import Data.Maybe

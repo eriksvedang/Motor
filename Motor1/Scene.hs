@@ -5,39 +5,39 @@ module Scene(SceneManager(..),
              renderSceneManager) where
 
 import Data.Maybe
-import Event
--- import Control.Monad.State
--- import Control.Monad.Identity
+import Control.Monad.State
+import Control.Monad.Reader
 
--- g = game state type
--- k = knobs type
+type UpdateFn s = Double -> StateT s IO ()
+type RenderFn s = ReaderT s IO ()
 
---type MotorUpdate a = StateT a Identity
-
-data Scene g k = Scene {
-    renderFn :: g -> k -> IO (),
-    updateFn :: g -> k -> Double -> (g, [Event])
+data Scene s = Scene {
+    updateFn :: UpdateFn s,
+    renderFn :: RenderFn s
 }
 
-data SceneManager g k = SceneManager {
-    scenes :: [(String, Scene g k)],
+data SceneManager s = SceneManager {
+    scenes :: [(String, Scene s)],
     activeScene :: String
 }
 
-setScene :: SceneManager g k -> String -> SceneManager g k
+setScene :: SceneManager s -> String -> SceneManager s
 setScene sceneManager key = sceneManager { activeScene = key }
 
-useSceneManager :: (Scene g k -> g -> t) -> SceneManager g k -> g -> t
-useSceneManager selector sceneManager gameState = 
+getActiveScene :: SceneManager s -> Scene s
+getActiveScene sceneManager = 
     let key = activeScene sceneManager
-        currentScene = fromMaybe (error $ "Scene \"" ++ key ++ "\" not found")
-                                 (lookup key $ scenes sceneManager)
-        f = selector currentScene
-    in f gameState
+    in fromMaybe (error $ "Scene \"" ++ key ++ "\" not found")
+                 (lookup key $ scenes sceneManager)
 
-renderSceneManager :: SceneManager g k -> g -> k -> IO ()
-renderSceneManager = useSceneManager renderFn
+updateSceneManager :: SceneManager s -> Double -> StateT s IO ()
+updateSceneManager mgr dt =
+    let scene = getActiveScene mgr
+        f = updateFn scene
+    in f dt
 
-updateSceneManager :: SceneManager g k -> g -> k -> Double -> (g, [Event])
-updateSceneManager = useSceneManager updateFn
-
+renderSceneManager :: SceneManager s -> ReaderT s IO ()
+renderSceneManager mgr =
+    let scene = getActiveScene mgr
+        f = renderFn scene
+    in f
