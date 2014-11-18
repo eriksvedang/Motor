@@ -13,17 +13,10 @@ import qualified Graphics.UI.GLFW as G
 import System.Exit
 import System.IO
 import Control.Monad
-import Control.Monad.State (execStateT, StateT, modify)
+import Control.Monad.State (execStateT, modify)
 import Control.Monad.Reader
---import Control.Monad.IO.Class
--- import Control.Monad.Identity
--- import Data.IORef
--- import Control.Concurrent (forkIO)
--- import Knobs
--- import Scene
--- import Event
+import Types
 
--- type ErrorCallback = Error -> String -> IO ()
 errorCallback :: G.ErrorCallback
 errorCallback _ = hPutStrLn stderr
 
@@ -38,9 +31,6 @@ data EngineSettings = EngineSettings {
     _quitWithEscape :: Bool,
     _backgroundColor :: Color4 GLclampf
 } deriving (Eq, Show)
-
-type UpdateFn s = Double -> StateT s IO ()
-type RenderFn s = ReaderT s IO ()
 
 runEngine :: EngineSettings -> s -> UpdateFn s -> RenderFn s -> IO ()
 runEngine engineSettings initialGameState updateFn renderFn = do

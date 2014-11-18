@@ -7,19 +7,23 @@ module Scene(SceneManager(..),
 import Data.Maybe
 import Control.Monad.State
 import Control.Monad.Reader
-
-type UpdateFn s = Double -> StateT s IO ()
-type RenderFn s = ReaderT s IO ()
+import Types
 
 data Scene s = Scene {
     updateFn :: UpdateFn s,
     renderFn :: RenderFn s
 }
 
+instance Show (Scene s) where
+    show _ = "Scene"
+
 data SceneManager s = SceneManager {
     scenes :: [(String, Scene s)],
     activeScene :: String
 }
+
+instance Show (SceneManager s) where
+    show mgr = "SceneManager: " ++ activeScene mgr
 
 setScene :: SceneManager s -> String -> SceneManager s
 setScene sceneManager key = sceneManager { activeScene = key }
