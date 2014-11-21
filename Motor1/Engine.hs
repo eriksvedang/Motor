@@ -3,9 +3,11 @@ module Engine(runEngine,
               EngineSettings(..),
               UpdateFn,
               RenderFn,
+              InputFn,
               modify,
               ask,
-              liftIO) where
+              liftIO
+              ) where
 
 import Colors
 import Graphics.Rendering.OpenGL
@@ -16,13 +18,17 @@ import Control.Monad
 import Control.Monad.State (execStateT, modify)
 import Control.Monad.Reader
 import Types
+import Data.IORef
 
 errorCallback :: G.ErrorCallback
 errorCallback _ = hPutStrLn stderr
 
 -- type KeyCallback = Window -> Key -> Int -> KeyState -> ModifierKeys -> IO ()
-keyCallback :: Bool -> G.KeyCallback
-keyCallback quitWithEscape window key _ keyState _ = 
+keyCallback :: InputFn s -> IORef s -> Bool -> G.KeyCallback
+keyCallback inputFn stateRef quitWithEscape window key i keyState modifierKeys = do
+    state <- readIORef stateRef
+    newState <- execStateT (inputFn key i keyState modifierKeys) state
+    writeIORef stateRef newState
     when (quitWithEscape && key == G.Key'Escape && keyState == G.KeyState'Pressed) $ G.setWindowShouldClose window True
 
 data EngineSettings = EngineSettings {
@@ -32,8 +38,8 @@ data EngineSettings = EngineSettings {
     _backgroundColor :: Color4 GLclampf
 } deriving (Eq, Show)
 
-runEngine :: EngineSettings -> s -> UpdateFn s -> RenderFn s -> IO ()
-runEngine engineSettings initialGameState updateFn renderFn = do
+runEngine :: EngineSettings -> s -> UpdateFn s -> RenderFn s -> InputFn s -> IO ()
+runEngine engineSettings initialGameState updateFn renderFn inputFn = do
 
     G.setErrorCallback (Just errorCallback)
     successfulInit <- G.init
@@ -48,16 +54,21 @@ runEngine engineSettings initialGameState updateFn renderFn = do
         case maybeWindow of
             Nothing -> G.terminate >> exitFailure
             Just win -> do G.makeContextCurrent maybeWindow
-                           G.setKeyCallback win $ Just (keyCallback quitWithEscape)
+
+                           gameStateRef <- newIORef initialGameState
+
+                           G.setKeyCallback win $ Just (keyCallback inputFn gameStateRef quitWithEscape)
                            clearColor $= _backgroundColor engineSettings
                            
-                           let mainLoop state lastT = do
+                           let mainLoop lastT = do
+                                state <- readIORef gameStateRef
                                 close <- G.windowShouldClose win
                                 unless close $ do
                                     -- Update
                                     Just t <- G.getTime
                                     let dt = t - lastT
                                     state' <- execStateT (updateFn dt) state
+                                    writeIORef gameStateRef state'
 
                                     -- Render
                                     (width, height) <- G.getFramebufferSize win
@@ -69,13 +80,14 @@ runEngine engineSettings initialGameState updateFn renderFn = do
                                     ortho (negate ratio) ratio (negate 1.0) 1.0 1.0 (negate 1.0)
                                     matrixMode $= Modelview 0
                                     loadIdentity
-                                    runReaderT renderFn state
+                                    stateToRender <- readIORef gameStateRef
+                                    runReaderT renderFn stateToRender
                                     G.swapBuffers win
                                     G.pollEvents
-                                    mainLoop state' t
+                                    mainLoop t
 
                            Just initT <- G.getTime
-                           mainLoop initialGameState initT
+                           mainLoop initT
                            G.destroyWindow win
                            G.terminate
                            exitSuccess
@@ -83,8 +95,8 @@ runEngine engineSettings initialGameState updateFn renderFn = do
 
 def :: EngineSettings
 def = EngineSettings {
-        _title = "MOTOR",
-        _size = (500, 500),
-        _quitWithEscape = True,
-        _backgroundColor = rgbaColor 0.2 0.2 0.2 1.0
-      }
+    _title = "MOTOR",
+    _size = (500, 500),
+    _quitWithEscape = True,
+    _backgroundColor = rgbaColor 0.2 0.2 0.2 1.0
+}

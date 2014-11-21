@@ -1,0 +1,1748 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Kno",
+				"KnobsRef	"
+			],
+			[
+				"Scene",
+				"SceneManager	s"
+			],
+			[
+				"sceneMgr",
+				"_sceneMgr"
+			],
+			[
+				"knobs",
+				"knobsRef"
+			],
+			[
+				"knob",
+				"knobsRef"
+			],
+			[
+				"update",
+				"updateSceneB"
+			],
+			[
+				"rend",
+				"renderFn"
+			],
+			[
+				"render",
+				"renderSceneManager	  (Eq k) => SceneManager k g -> g -> IO ()"
+			],
+			[
+				"Sc",
+				"sceneB"
+			],
+			[
+				"scen",
+				"sceneB"
+			],
+			[
+				"Scen",
+				"SceneManager	k g"
+			],
+			[
+				"curr",
+				"currentScene"
+			],
+			[
+				"sce",
+				"sceneA	MyScene"
+			],
+			[
+				"upda",
+				"update	KnobType -> GameState -> Double -> GameState"
+			],
+			[
+				"scene",
+				"sceneManager"
+			],
+			[
+				"readIO",
+				"readIORef	IORef a -> IO a"
+			],
+			[
+				"puts",
+				"putStrLn	String -> IO ()"
+			],
+			[
+				"start",
+				"startWatching"
+			],
+			[
+				"putSTr",
+				"putStrLn	String -> IO ()"
+			],
+			[
+				"Action",
+				"ActionPredicate	type ActionPredicate"
+			],
+			[
+				"fork",
+				"forkIO	IO () -> IO ThreadId"
+			],
+			[
+				"tail",
+				"tailspin"
+			],
+			[
+				"map",
+				"mapM_	Monad m => (a -> m b) -> [a] -> m ()"
+			],
+			[
+				"ote",
+				"outerR"
+			],
+			[
+				"putS",
+				"putStrLn	String -> IO ()"
+			],
+			[
+				"Verte",
+				"Vertex3	data Vertex3 a"
+			],
+			[
+				"put",
+				"putStrLn	String -> IO ()"
+			],
+			[
+				"init",
+				"initialState"
+			],
+			[
+				"maybe",
+				"maybeWindow"
+			],
+			[
+				"WInd",
+				"WindowSettings	"
+			],
+			[
+				"wind",
+				"windowSettings"
+			],
+			[
+				"Wind",
+				"WindowSettings	"
+			],
+			[
+				"im",
+				"import"
+			],
+			[
+				"circle",
+				"circleTex"
+			],
+			[
+				"loadSH",
+				"loadShaderOrFail"
+			],
+			[
+				"text",
+				"texturedShader"
+			],
+			[
+				"sold",
+				"solidShader"
+			],
+			[
+				"circl",
+				"circleTex"
+			],
+			[
+				"to",
+				"to_string"
+			],
+			[
+				"Lust",
+				"LustType"
+			],
+			[
+				"Lu",
+				"LustType"
+			],
+			[
+				"For",
+				"FormatError"
+			],
+			[
+				"eval",
+				"eval_and_print_result"
+			],
+			[
+				"E",
+				"Environment"
+			],
+			[
+				"eva",
+				"eval_and_print_result"
+			],
+			[
+				"Mines_",
+				"Mines_Entry_Trigger_1"
+			],
+			[
+				"mini",
+				"ministry"
+			],
+			[
+				"mod",
+				"modifierare"
+			],
+			[
+				"Look",
+				"LookupPerson"
+			],
+			[
+				"GOT",
+				"GOT_IN"
+			],
+			[
+				"Casino",
+				"Casino_Floor1"
+			],
+			[
+				"Pixi",
+				"PixiesApartment_SofaSeat_1"
+			],
+			[
+				"EN",
+				"END_FOR_TODAY"
+			],
+			[
+				"Fib",
+				"FibsHackdev"
+			],
+			[
+				"Inter",
+				"Internet_FuseBox_1"
+			],
+			[
+				"Harbo",
+				"HarborEast_Point"
+			],
+			[
+				"SetCa",
+				"SetCameraAutoRotateSpeed"
+			],
+			[
+				"Tour",
+				"TouristOfficeGal"
+			],
+			[
+				"Lodge",
+				"Lodge_Room1_Point1"
+			],
+			[
+				"Seb",
+				"Sebastian"
+			],
+			[
+				"C",
+				"CasinoGuard1"
+			],
+			[
+				"To",
+				"TouristOfficeGal"
+			],
+			[
+				"Pixie",
+				"Pixie_SitDownExperimentHall"
+			],
+			[
+				"p",
+				"paddleSize"
+			],
+			[
+				"MORE",
+				"MORE_MORE"
+			],
+			[
+				"Is",
+				"IsWithinDistance"
+			],
+			[
+				"Sha",
+				"ShapeWithOval"
+			],
+			[
+				"Sh",
+				"ShapeWithOval"
+			],
+			[
+				"Shap",
+				"ShapeWithRect"
+			],
+			[
+				"Cas",
+				"CasinoGuard1"
+			],
+			[
+				"Ca",
+				"CasinoGuard1"
+			],
+			[
+				"Min",
+				"MineCart"
+			],
+			[
+				"Well",
+				"WellspringRepresentant"
+			],
+			[
+				"WAIT",
+				"WAIT_HERE"
+			],
+			[
+				"SKP",
+				"SKIP_ALL"
+			],
+			[
+				"Pet",
+				"Petra"
+			],
+			[
+				"LET",
+				"LET_ME_DO_TRIAL"
+			],
+			[
+				"Start",
+				"StartTalking"
+			],
+			[
+				"well",
+				"WellspringRepresentant"
+			],
+			[
+				"CO",
+				"CHOICE"
+			],
+			[
+				"Monad",
+				"MonadCig1"
+			],
+			[
+				"Man",
+				"Monad"
+			],
+			[
+				"Hom",
+				"HomeApartment_TelevisionS_TelevisionS_1"
+			],
+			[
+				"hint",
+				"windowHint	WindowHint -> IO ()"
+			],
+			[
+				"set",
+				"setWindowTitle	Window -> String -> IO ()"
+			],
+			[
+				"Sebastian_ta",
+				"Sebastian_talk_Father"
+			],
+			[
+				"MineCar",
+				"MineCartComputer"
+			],
+			[
+				"IsI",
+				"IsInRoom"
+			],
+			[
+				"GOTT",
+				"GOTTA_TRY_THAT"
+			],
+			[
+				"all",
+				"allRands"
+			],
+			[
+				"upd",
+				"updateWorld"
+			],
+			[
+				"rand",
+				"randoms	(Random a, RandomGen g) => g -> [a]"
+			],
+			[
+				"Typ",
+				"Typer5"
+			],
+			[
+				"Typer",
+				"Typer5_Extractor"
+			],
+			[
+				"sort",
+				"sortByDiff	Size -> [Ting] -> [Ting]"
+			],
+			[
+				"ting",
+				"tingSize"
+			],
+			[
+				"DETA",
+				"DETECT_HACKING"
+			],
+			[
+				"line",
+				"lineLoop	Path -> Picture"
+			],
+			[
+				"obst",
+				"obstacle"
+			],
+			[
+				"dete",
+				"detectBorderDeath"
+			],
+			[
+				"mo",
+				"Monad"
+			],
+			[
+				"draw",
+				"drawAnimal"
+			],
+			[
+				"makeCo",
+				"makeColor	Float -> Float -> Float -> Float -> Color"
+			],
+			[
+				"make",
+				"makeColor	Float -> Float -> Float -> Float -> Color"
+			],
+			[
+				"PI",
+				"pi	Floating a => a"
+			],
+			[
+				"Rob",
+				"Roby"
+			],
+			[
+				"B",
+				"Babcia"
+			],
+			[
+				"Pan",
+				"Panda4"
+			],
+			[
+				"conn",
+				"connectionName"
+			],
+			[
+				"WE",
+				"WellspringRepresentant"
+			],
+			[
+				"integ",
+				"toInteger	Integral a => a -> Integer"
+			],
+			[
+				"ball",
+				"ballSpeedX"
+			],
+			[
+				"ballSpee",
+				"ballSpeedX"
+			],
+			[
+				"bal",
+				"ballSpeedX"
+			],
+			[
+				"padd",
+				"paddleX"
+			],
+			[
+				"pa",
+				"paddleX"
+			],
+			[
+				"fe",
+				"fenceLogger1"
+			],
+			[
+				"Ele",
+				"Ministry_Elevator1_Point"
+			],
+			[
+				"Mini",
+				"Ministry_Elevator1_Point"
+			],
+			[
+				"Petra",
+				"PetrasApartment"
+			],
+			[
+				"L",
+				"Lodge_Entry_Point1"
+			],
+			[
+				"DONE",
+				"DONE_GIVING_BEER"
+			],
+			[
+				"GO",
+				"GOTTA_TALK"
+			],
+			[
+				"Pi",
+				"PIXIE_DISAPPOINTED"
+			],
+			[
+				"Wel",
+				"WellspringRepresentant"
+			],
+			[
+				"Bab",
+				"BabciasPhone"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/User/CabalBuild.sublime-build",
+	"command_palette":
+	{
+		"height": 87.0,
+		"selected_items":
+		[
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"git fet",
+				"Git: Fetch"
+			],
+			[
+				"git pu",
+				"Git: Pull"
+			],
+			[
+				"git fe",
+				"Git: Fetch"
+			],
+			[
+				"git up",
+				"Git: Pull"
+			],
+			[
+				"cloj",
+				"Set Syntax: Clojure"
+			],
+			[
+				"clojure",
+				"Set Syntax: ClojureScript"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"haske sett",
+				"Preferences: SublimeHaskell Settings – User"
+			],
+			[
+				"ch",
+				"SublimeHaskell: Check"
+			],
+			[
+				"chec",
+				"SublimeHaskell: Check"
+			],
+			[
+				"check",
+				"SublimeHaskell: Check"
+			],
+			[
+				"haskel sett",
+				"Preferences: SublimeHaskell Settings – User"
+			],
+			[
+				"conver",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"spaces",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"run",
+				"SublimeHaskell: Run"
+			],
+			[
+				"buil",
+				"SublimeHaskell: Build"
+			],
+			[
+				"set syn hask",
+				"Set Syntax: Haskell"
+			],
+			[
+				"set hask",
+				"Set Syntax: Haskell"
+			],
+			[
+				"hask",
+				"Set Syntax: Haskell"
+			],
+			[
+				"set has",
+				"Set Syntax: Haskell"
+			],
+			[
+				"haske",
+				"Set Syntax: Haskell"
+			],
+			[
+				"set haskell",
+				"Set Syntax: Haskell"
+			],
+			[
+				"set syntax has",
+				"Set Syntax: Haskell"
+			],
+			[
+				"set synt  hask",
+				"Set Syntax: Haskell"
+			],
+			[
+				"settings",
+				"Preferences: Settings - Default"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"packa list",
+				"Package Control: List Packages"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"orgmo",
+				"Preferences: orgmode Settings – Default"
+			],
+			[
+				"org",
+				"Set Syntax: orgmode"
+			],
+			[
+				"packau",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"grimm",
+				"Set Syntax: Grimm"
+			],
+			[
+				"sprak",
+				"Set Syntax: Sprak"
+			],
+			[
+				"miman",
+				"Set Syntax: Miman"
+			],
+			[
+				"tmlang",
+				"SyntaxHighlightTools: New tmLang File…"
+			],
+			[
+				"elm",
+				"Set Syntax: Elm"
+			],
+			[
+				"c#",
+				"Set Syntax: C#"
+			],
+			[
+				"repl",
+				"SublimeREPL: Haskell"
+			],
+			[
+				"replha",
+				"SublimeREPL: Haskell"
+			],
+			[
+				"lint",
+				"SublimeHaskell: Lint"
+			],
+			[
+				"sublime",
+				"SublimeHaskell: Lint"
+			],
+			[
+				"sty",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"styli",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"styl",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"hasek",
+				"Set Syntax: Haskell"
+			],
+			[
+				"hasell repl",
+				"Set Syntax: Haskell Repl"
+			],
+			[
+				"sublime haskell sett",
+				"Preferences: SublimeHaskell Settings – Default"
+			],
+			[
+				"user",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"hoo",
+				"SublimeHaskell: Typecheck build (no codegen)"
+			],
+			[
+				"sublimhec",
+				"SublimeHaskell: Browse Declarations"
+			],
+			[
+				"haske ll",
+				"Preferences: SublimeHaskell Settings – User"
+			],
+			[
+				"haskell sett",
+				"Preferences: SublimeHaskell Settings – Default"
+			],
+			[
+				"haskell use",
+				"Preferences: SublimeHaskell Settings – User"
+			],
+			[
+				"haskell user",
+				"Preferences: SublimeHaskell Settings – User"
+			],
+			[
+				"Snippet: ",
+				"Snippet: #!/usr/bin/env"
+			],
+			[
+				"haske ",
+				"SublimeHaskell: Configure"
+			],
+			[
+				"def ",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"stylish",
+				"SublimeHaskell: Stylish"
+			],
+			[
+				"insert",
+				"SublimeHaskell: Insert type"
+			],
+			[
+				"showt",
+				"SublimeHaskell: Show type"
+			],
+			[
+				"sublhaske",
+				"SublimeHaskell: Insert type"
+			],
+			[
+				"type",
+				"SublimeHaskell: Show type"
+			],
+			[
+				"typ",
+				"SublimeHaskell: Show type"
+			],
+			[
+				"hask typ",
+				"SublimeHaskell: Insert type"
+			],
+			[
+				"haskell",
+				"Preferences: SublimeHaskell Settings – Default"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 1035.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/erik/Projects/Motor/Motor1"
+	],
+	"file_history":
+	[
+		"/Users/erik/Projects/Motor/Motor1/Types.hs",
+		"/Users/erik/Projects/Motor/Motor1/Engine.hs",
+		"/Users/erik/Projects/Motor/Motor1/Event.hs",
+		"/Users/erik/Projects/Motor/Motor1/Main.hs",
+		"/Users/erik/.zshrc",
+		"/Users/erik/Projects/TryScotty/Main.hs",
+		"/Users/erik/Projects/Motor/Motor1/Knobs.hs",
+		"/Users/erik/Projects/Motor/Motor1/Tailspin.hs",
+		"/Users/erik/Projects/Motor/Motor1/Motor1.cabal",
+		"/Users/erik/Projects/Motor/Motor1/dist/build/Motor1/Motor1-tmp/Types.hi",
+		"/Users/erik/Projects/sand/gameplay/asteroid-spawner.mocha",
+		"/Users/erik/Projects/sand/state.mocha",
+		"/Users/erik/Projects/sand/render/asteroid.yaml",
+		"/Users/erik/Projects/sand/render/avatar.yaml",
+		"/Users/erik/Projects/sand/gameplay/avatar.mocha",
+		"/Users/erik/Projects/sand/README.md",
+		"/Users/erik/Projects/Motor/Motor1/Scene.hs",
+		"/Users/erik/Projects/Motor/Motor1/knobs.txt",
+		"/Users/erik/Projects/Motor/Motor1/dist/build/autogen/Paths_Motor1.hs",
+		"/Users/erik/Projects/Motor/Motor1/dist/setup-config",
+		"/Users/erik/Projects/Motor/Motor1/Setup.hs",
+		"/Users/erik/Projects/Motor/Motor1/dist/build/autogen/cabal_macros.h",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Timetables/SleepTest2.ttt",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryStart.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Timetables/Ivan.ttt",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/Internet.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Sprak/Computers/Internet_Internet_ComputerTerminal_7.sprak",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/User/SublimeHaskell.sublime-settings",
+		"/Users/erik/Projects/LearnHask/Glfw-b-example.hs",
+		"/Users/erik/Projects/Hickory/Readme.md",
+		"/Users/erik/Projects/Hickory/Setup.hs",
+		"/Users/erik/Projects/Hickory/.gitignore",
+		"/Users/erik/Projects/Hickory/dist/dist-sandbox-11881d47/build/Graphics/DrawText.hi",
+		"/Users/erik/Projects/Hickory/include/defs.h",
+		"/Users/erik/Projects/Hickory/dist/build/Engine/Scene/Input.dyn_hi",
+		"/Users/erik/Projects/Hickory/Engine/Scene/Input.hs",
+		"/Users/erik/Projects/Hickory/Platform/iPhone.hs",
+		"/Users/erik/Projects/HickTest/HickTest.cabal",
+		"/Users/erik/Projects/HickTest/cabal.sandbox.config",
+		"/Users/erik/Projects/HickTest/cabal.config",
+		"/Users/erik/.cabal/config",
+		"/Users/erik/Downloads/press.txt",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/erik/Projects/LearnHask/Main.hs",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Sprak/Computers/MainFrame.sprak",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/MonadsApartment.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Manual.txt",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/User/Haskell-SublimeHaskell.sublime-settings",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/Tram_Interior.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Translations/English/Trailer.eng.mtf",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Intros/Trailer.dia",
+		"/Users/erik/Desktop/mygame/src/main.rs",
+		"/Users/erik/Desktop/mygame/Cargo.toml",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/User/fuzzy_file_nav.sublime-settings",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/FuzzyFileNav/fuzzy_file_nav.sublime-settings",
+		"/Users/erik/Projects/Lust/src/main.rs",
+		"/Users/erik/Projects/Lust/README",
+		"/Users/erik/Desktop/bleh.html",
+		"/Users/erik/Projects/Lust/target/.fingerprint/Lust-ef7cb0de944f68fd/bin-Lust",
+		"/Users/erik/Projects/Lust/Lust.sublime-project",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/Color Highlighter/ColorHighlighter.sublime-settings",
+		"/Users/erik/Projects/Lust/Cargo.lock",
+		"/Users/erik/Desktop/hej.todo",
+		"/Users/erik/Library/Application Support/Sublime Text 3/Packages/orgmode/orgmode.sublime-settings",
+		"/Users/erik/Projects/piston-examples/image/src/main.rs",
+		"/Users/erik/Projects/piston-examples/gfx_cube/src/main.rs",
+		"/Users/erik/Projects/piston-examples/gfx_cube/target/deps/libgfx_macros-990750b761360da9.dylib.dSYM/Contents/Info.plist",
+		"/Users/erik/Projects/piston-examples/sprite/src/main.rs",
+		"/Users/erik/Projects/LearnRust/Polymorph/Hej.rs",
+		"/Users/erik/Projects/LearnRust/Bye/src/main.rs",
+		"/Users/erik/Projects/LearnRust/Bye/src/hej.rs",
+		"/Users/erik/Projects/LearnRust/Hello/src/main.rs",
+		"/Users/erik/Projects/LearnRust/Polymorph/Svej.rs",
+		"/Users/erik/Desktop/programduon.txt",
+		"/Users/erik/Projects/ElseHeartbreak/playtests/Epic Todo.txt",
+		"/Users/erik/Desktop/Hej.rs",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Characters/Pixie/Pixie_ClubDotGig1.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Characters/Bob/Bob_ClubDotGig1.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Timetables/Pixie.ttt",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Chapters/SkipToClubDotGig1.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Timetables/Bob.ttt",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Characters/Bob/Bob_TryFindLodge.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Timetables/Babcia.ttt",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Characters/Bob/Bob_CanSellSoda.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Sprak/Floppys/Poetry3.sprak",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Translations/English/Pixie_ClubDotGig1.eng.mtf",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Translations/English/Pixie_CakeParty.eng.mtf",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_ClubDotMorning.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/Mines_ClubDot.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_ClubDotGig1.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Timetables/Chuck.ttt",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Chapters/SkipToBeforeClubDotGig1.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Sprak/FishGame/BeatFishGame.sprak",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/PoorDesolateBuilding1_Elevator.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Chapters/SkipToCakeParty.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Chapters/SkipToHackerTrial1.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Characters/Hank/Hank_SecondLecture.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/Lodge_SecondCorridor.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Chapters/SkipToEnterCasino.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/Setup/SetupCharacters.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Translations/English/Frank_DidYouStealTheFiles.eng.mtf",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Sprak/MusicBoxes/FranksLoopBox.sprak",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Translations/English/Frank_CasinoHeist.eng.mtf",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/Foley.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_VisionaryDream.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/DreamForest.tings",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/DreamForest.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/PoorDesolateBuilding1_HackerRoom.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/DorisGardens_West.json",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/RoomsWithTings/DorianApartment.tings",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_DoorFixed.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_DiscoBall.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_CrazyParty.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_CheckedIn.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_CasinoHeist.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_CakeParty.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_BoringParty.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_AfterStalking.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_AfterPyjamas.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_Sad.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_Razzia.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_Ghosts.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_Downtime.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_Backdrunk.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Grimm/StoryWeb/_Arrival.dia",
+		"/Users/erik/Projects/ElseHeartbreak/assembla/MimanUnity2/InitData/Timetables/BeInTesting2.ttt"
+	],
+	"find":
+	{
+		"height": 31.0
+	},
+	"find_in_files":
+	{
+		"height": 99.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"avatar",
+			"knobState",
+			"renderFun",
+			" s",
+			", Scene s",
+			"t",
+			"0.9",
+			"0.2",
+			"settings",
+			"wasModified",
+			"State",
+			"GLdouble",
+			"windowSettings",
+			"w",
+			"unless'",
+			"errorCallback",
+			"maybe'",
+			"V2",
+			"fromJust",
+			"shader",
+			"maybeShader",
+			"missiletex",
+			"worldLayer",
+			"over",
+			"local",
+			"source",
+			"opam",
+			"scheme",
+			"color",
+			"en till om jag får be",
+			"en till",
+			"id",
+			"p",
+			"window",
+			"fail",
+			"Awesome",
+			"Good day",
+			"talk",
+			"talk_more",
+			"[Q]",
+			"INTERRUPT",
+			"seppe",
+			" =>  ",
+			" => ",
+			"det brukar komma",
+			"TestBubbles",
+			"\"Kanske\"",
+			"swing by",
+			"kanske",
+			"seat",
+			"PixiesApartment_SofaSeat_1",
+			"vad hände?",
+			"var är jag",
+			"uh var är jag",
+			"casino",
+			"FOCUS",
+			"SmallHackdev",
+			"OldHackdev",
+			"bossen",
+			"bossen är inne",
+			"Story(\"HackerTrial1\")",
+			"LetMeBeAHacker",
+			"HackerTrialTime",
+			"Story(\"HackerTrial1\")",
+			"Story(HackerTrial1)",
+			"Lodge_Room2_Chair_SimpleCarver_Chair_SimpleCarver_1",
+			"Float",
+			"than them",
+			"than us",
+			"than me",
+			"more than me",
+			"knwo",
+			" => ",
+			"hackdev",
+			"Så jag kan ansluta en hackdev",
+			" => ",
+			"DorianApartment_Diskette_Diskette10_1",
+			"Hotel_Room1_Point",
+			"but I stopped",
+			"Dorian.Has",
+			"Dorian.SetKnow",
+			"Guard",
+			"asteroids",
+			"asteriods",
+			"Razzia",
+			"Hotel_Room1_Point",
+			"trash11",
+			"trash12",
+			"trash11",
+			"rolf",
+			"ring",
+			"å",
+			"ä",
+			"ö",
+			"Dorian",
+			"Wayfinder",
+			"Laptop",
+			"HelloWorld",
+			"Photoshop",
+			"Blip 1",
+			"Beep 1",
+			"\"Beep 1\"",
+			"no monitor",
+			"PoorDesolateBuilding1_HackerRoom",
+			"pede",
+			"Pedestrian",
+			"HarborEast_Point",
+			"HarbourEast_Point",
+			"Ministry_Lobby_Point",
+			"Plaza_Point",
+			"Cafe_Room1_Point",
+			"Hotel_Lobby_Point",
+			"Hotel_Lobby_Point1",
+			".....................",
+			"Lowercase",
+			"Wayfinder",
+			"Pathfinder",
+			"Wayfinder",
+			"ComputerL3",
+			"ComputerL4",
+			"MonadTodo",
+			"MonadFiles",
+			"CANCEL ",
+			"CANCEL",
+			"BlankSlate",
+			"Who is it",
+			"navnode",
+			" => "
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"\"\\\"drug\\\"\"",
+			"PrintS",
+			"Input(\"\")",
+			"Input",
+			"PlaySound(",
+			"ClearText()"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 776.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 148.0
+	},
+	"output.haskell_error_checker":
+	{
+		"height": 585.0
+	},
+	"output.haskell_sublime_load":
+	{
+		"height": 136.0
+	},
+	"output.sublime_haskell_hdevtools_type":
+	{
+		"height": 356.0
+	},
+	"output.sublime_haskell_symbol_info":
+	{
+		"height": 302.0
+	},
+	"project": "Motor.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"types",
+				"Types.hs"
+			],
+			[
+				"engin",
+				"Engine.hs"
+			],
+			[
+				"knob",
+				"Knobs.hs"
+			],
+			[
+				"eve",
+				"Motor1/Event.hs"
+			],
+			[
+				"engine",
+				"Motor1/Engine.hs"
+			],
+			[
+				"sce",
+				"Motor1/Scene.hs"
+			],
+			[
+				"mai",
+				"Motor1/Main.hs"
+			],
+			[
+				"story",
+				"Grimm/StoryStart.dia"
+			],
+			[
+				"read",
+				"Readme.md"
+			],
+			[
+				".cabal",
+				"HickTest.cabal"
+			],
+			[
+				"tramsprak",
+				"Sprak/Computers/TramNr1.sprak"
+			],
+			[
+				"tele",
+				"Grimm/Cheats/Teleport.dia"
+			],
+			[
+				"main",
+				"src/main.rs"
+			],
+			[
+				"car",
+				"Cargo.toml"
+			],
+			[
+				"mian",
+				"src/main.rs"
+			],
+			[
+				"bob.tt",
+				"Timetables/Bob.ttt"
+			],
+			[
+				"bobttt",
+				"Timetables/Bob.ttt"
+			],
+			[
+				"bobcl",
+				"Grimm/Characters/Bob/Bob_ClubDotGig1.dia"
+			],
+			[
+				"pixie",
+				"Timetables/Pixie.ttt"
+			],
+			[
+				"pixieclub",
+				"Grimm/Characters/Pixie/Pixie_ClubDotGig1.dia"
+			],
+			[
+				"skipclub",
+				"Grimm/Chapters/SkipToClubDotGig1.dia"
+			],
+			[
+				"secondl",
+				"Grimm/Characters/Hank/Hank_SecondLecture.dia"
+			],
+			[
+				"dream",
+				"Grimm/StoryWeb/_VisionaryDream.dia"
+			],
+			[
+				"bobcans",
+				"Grimm/Characters/Bob/Bob_CanSellSoda.dia"
+			],
+			[
+				"bobclu",
+				"Grimm/Characters/Bob/Bob_ClubDotGig1.dia"
+			],
+			[
+				"mich",
+				"Grimm/Characters/Michail/Michail_Arrival.dia"
+			],
+			[
+				"bobclubdo",
+				"Grimm/Characters/Bob/Bob_ClubDotGig1.dia"
+			],
+			[
+				"sells",
+				"Grimm/Characters/Bob/SellSodaToBob.dia"
+			],
+			[
+				"trailer",
+				"Grimm/Intros/Trailer.dia"
+			],
+			[
+				"felixpy",
+				"Grimm/Characters/Felix/Felix_PyjamasParty.dia"
+			],
+			[
+				"felixafter",
+				"Grimm/Characters/Felix/Felix_AfterStalking.dia"
+			],
+			[
+				"sellso",
+				"Grimm/Characters/Bob/SellSodaToBob.dia"
+			],
+			[
+				"ivan.tt",
+				"Timetables/Ivan.ttt"
+			],
+			[
+				"pixie.tt",
+				"Timetables/Pixie.ttt"
+			],
+			[
+				"pixiettt",
+				"Timetables/Pixie.ttt"
+			],
+			[
+				"gamb",
+				"Grimm/Characters/Pixie/Pixie_GamblingTonight.dia"
+			],
+			[
+				"pixiefacot",
+				"Grimm/Characters/Pixie/Pixie_FactoryMission.dia"
+			],
+			[
+				"skiptodisc",
+				"Grimm/Chapters/SkipToDiscoBall.dia"
+			],
+			[
+				"skiptoafterpy",
+				"Grimm/Chapters/SkipToAfterPyjamas.dia"
+			],
+			[
+				"yutria",
+				"Grimm/Characters/Yulian/Yulian_HackerTrial1.dia"
+			],
+			[
+				"yuliantrial1",
+				"Grimm/Characters/Yulian/Yulian_HackerTrial1.dia"
+			],
+			[
+				"yulian",
+				"Timetables/Yulian.ttt"
+			],
+			[
+				"pixietrial1",
+				"Grimm/Characters/Pixie/Pixie_HackerTrial1.dia"
+			],
+			[
+				"pixietrai",
+				"Grimm/Characters/Pixie/Pixie_HackerTrial1.dia"
+			],
+			[
+				"skiphack",
+				"Grimm/Chapters/SkipToHackerTrial1.dia"
+			],
+			[
+				"poet",
+				"Sprak/Floppys/Poetry3.sprak"
+			],
+			[
+				"testbu",
+				"Translations/English/TestBubbles.eng.mtf"
+			],
+			[
+				"trail",
+				"Translations/English/Trailer.eng.mtf"
+			],
+			[
+				"hotelcom",
+				"Sprak/Computers/HotelLobbyComputer.sprak"
+			],
+			[
+				"hackertrail3",
+				"Translations/English/Pixie_HackerTrial3.eng.mtf"
+			],
+			[
+				"pixieghos",
+				"Translations/English/Pixie_Ghosts.eng.mtf"
+			],
+			[
+				"pixiecasin",
+				"Translations/English/Pixie_CasinoNightIsOver.eng.mtf"
+			],
+			[
+				"yulimem",
+				"Translations/English/Yulian_YouAreMemberNow.eng.mtf"
+			],
+			[
+				"pixiecasinoni",
+				"Translations/English/Pixie_CasinoNightIsOver.eng.mtf"
+			],
+			[
+				"frankcasin",
+				"Translations/English/Frank_CasinoHeist.eng.mtf"
+			],
+			[
+				"fibyou",
+				"Translations/English/Fib_YouAreMemberNow.eng.mtf"
+			],
+			[
+				"playh",
+				"Grimm/Characters/Sebastian/PlayHorn.dia"
+			],
+			[
+				"razz",
+				"Grimm/StoryWeb/_Razzia.dia"
+			],
+			[
+				"skiptoafter",
+				"Grimm/Chapters/SkipToAfterFactoryMission.dia"
+			],
+			[
+				"skiptoraz",
+				"Grimm/Chapters/SkipToRazzia.dia"
+			],
+			[
+				"onthe",
+				"Grimm/StoryWeb/_OnThePhone.dia"
+			],
+			[
+				"afterfact",
+				"Grimm/Chapters/SkipToAfterFactoryMission.dia"
+			],
+			[
+				"recep",
+				"Grimm/Characters/Receptionist/Receptionist_HelmetDay.dia"
+			],
+			[
+				"recept",
+				"Grimm/Characters/Receptionist/Receptionist_StrangeExplosion.dia"
+			],
+			[
+				"setupch",
+				"Grimm/Setup/SetupCharacters.dia"
+			],
+			[
+				"aster",
+				"Sprak/Arcade/Asteroids.sprak"
+			],
+			[
+				"pixiecurs",
+				"Translations/English/Pixie_CurseIsOver.eng.mtf"
+			],
+			[
+				"datare",
+				"Sprak/Computers/FloppyDataReader.sprak"
+			],
+			[
+				"photo",
+				"Sprak/Computers/Photoshop.sprak"
+			],
+			[
+				"poetra",
+				"Sprak/Floppys/Poetry3.sprak"
+			],
+			[
+				"poetry3",
+				"Sprak/Floppys/Poetry3.sprak"
+			],
+			[
+				"poetry",
+				"Sprak/Floppys/Poetry1.sprak"
+			],
+			[
+				"dorianting",
+				"RoomsWithTings/DorianApartment.tings"
+			],
+			[
+				"lapt",
+				"Sprak/Computers/LapTopOS.sprak"
+			],
+			[
+				"os.spra",
+				"Sprak/Computers/TriPodOS.sprak"
+			],
+			[
+				"os.sprak",
+				"Sprak/Computers/LapTopOS.sprak"
+			],
+			[
+				"setupom",
+				"Grimm/Setup/SetupComputers.dia"
+			],
+			[
+				"pede",
+				"Sprak/Computers/PedestrianOS.sprak"
+			],
+			[
+				"wayfin",
+				"Sprak/Computers/Wayfinder.sprak"
+			],
+			[
+				"connc",
+				"Sprak/Computers/ConnectionServer2.sprak"
+			],
+			[
+				"connec",
+				"Sprak/Computers/ConnectionServer.sprak"
+			],
+			[
+				"petra.tt",
+				"Timetables/Petra.ttt"
+			],
+			[
+				"pixiecurse",
+				"Grimm/Characters/Pixie/Pixie_CurseIsOver.dia"
+			],
+			[
+				"monadsprak",
+				"Sprak/Floppys/MonadTodo.sprak"
+			],
+			[
+				"monad.sprak",
+				"Sprak/Floppys/MonadFiles.sprak"
+			],
+			[
+				"curseisov",
+				"Grimm/Characters/Pixie/Pixie_CurseIsOver.dia"
+			],
+			[
+				"clubdo",
+				"Grimm/StoryWeb/_ClubDotGig1.dia"
+			],
+			[
+				"monadtodo",
+				"Sprak/Floppys/MonadTodo.sprak"
+			],
+			[
+				"monadpol",
+				"Sprak/Computers/MonadsPole.sprak"
+			],
+			[
+				"skiptocasin",
+				"Grimm/Chapters/SkipToCasinoHeist.dia"
+			],
+			[
+				"skiptogam",
+				"Grimm/Chapters/SkipToGamblingTonight.dia"
+			],
+			[
+				"diner",
+				"RoomsWithTings/Hotel_Diner.tings"
+			],
+			[
+				"hankghost",
+				"Translations/English/Hank_AfterGhostVisit.eng.mtf"
+			],
+			[
+				"elevapixi",
+				"Sprak/Computers/MinistryElevator1_Pixie.sprak"
+			],
+			[
+				"elevatorpixi",
+				"Sprak/Computers/MinistryElevator1_Pixie.sprak"
+			],
+			[
+				"elevator4",
+				"Sprak/Elevators/MinistryElevator4.sprak"
+			],
+			[
+				"elevatsprak",
+				"Sprak/Elevators/MinistryElevator3.sprak"
+			],
+			[
+				"elevat",
+				"Sprak/Elevators/MinistryElevator1.sprak"
+			],
+			[
+				"plaza",
+				"RoomsWithTings/Plaza.tings"
+			],
+			[
+				"felixtry",
+				"Grimm/Characters/Felix/Felix_TryFindLodge.dia"
+			],
+			[
+				"pixiegamb",
+				"Grimm/Characters/Pixie/Pixie_GamblingTonight.dia"
+			],
+			[
+				"ixiecur",
+				"Translations/English/Pixie_CurseIsOver.eng.mtf"
+			],
+			[
+				"pixiecak",
+				"Translations/English/Pixie_CakeParty.eng.mtf"
+			],
+			[
+				"fibafter",
+				"Translations/English/Fib_AfterStalking.eng.mtf"
+			],
+			[
+				"trial2",
+				"Grimm/Characters/Pixie/Pixie_HackerTrial2.dia"
+			],
+			[
+				"factorysprak",
+				"Sprak/Factory/RegisterIssue.sprak"
+			],
+			[
+				"factoryhap",
+				"Sprak/Factory/FactoryHappiness.sprak"
+			],
+			[
+				"fishb",
+				"Sprak/FishGame/FishGameButton.sprak"
+			],
+			[
+				"yuyourar",
+				"Translations/English/Yulian_YouAreMemberNow.eng.mtf"
+			],
+			[
+				"urbantry",
+				"Translations/English/Urban_TryFindLodge.eng.mtf"
+			],
+			[
+				"officegalcans",
+				"Translations/English/TouristOfficeGal_CanSellSoda.eng.mtf"
+			],
+			[
+				"sebasticarz",
+				"Translations/English/Sebastian_CrazyParty.eng.mtf"
+			],
+			[
+				"pixieyour",
+				"Translations/English/Pixie_YouAreMemberNow.eng.mtf"
+			],
+			[
+				"pixitry",
+				"Translations/English/Pixie_TryFindLodge.eng.mtf"
+			],
+			[
+				"pixietry",
+				"Grimm/Characters/Pixie/Pixie_TryFindLodge.dia"
+			],
+			[
+				"pixietrial3",
+				"Translations/English/Pixie_HackerTrial3.eng.mtf"
+			],
+			[
+				"pixiehackmt",
+				"Translations/English/Pixie_HackerTrial2.eng.mtf"
+			],
+			[
+				"pixehacker",
+				"Translations/English/Pixie_HackerTrial1.eng.mtf"
+			],
+			[
+				"pixiegam",
+				"Translations/English/Pixie_GamblingTonight.eng.mtf"
+			],
+			[
+				"pixiefacmi",
+				"Translations/English/Pixie_FactoryMission.eng.mtf"
+			],
+			[
+				"curseisovermt",
+				"Translations/English/Pixie_CurseIsOver.eng.mtf"
+			],
+			[
+				"pixiecraz",
+				"Translations/English/Pixie_CrazyParty.eng.mtf"
+			],
+			[
+				"pixieclu",
+				"Translations/English/Pixie_ClubDotGig1.eng.mtf"
+			],
+			[
+				"petracake",
+				"Translations/English/Petra_CakeParty.eng.mtf"
+			],
+			[
+				"monadreach",
+				"Translations/English/Monad_ReachedInternet.eng.mtf"
+			],
+			[
+				"moved",
+				"Translations/English/MovedToLars.eng.mtf"
+			],
+			[
+				"detecfac",
+				"Translations/English/_DetectFactoryBreakIn.eng.mtf"
+			],
+			[
+				"ivandic",
+				"Translations/English/Ivan_DiscoBall.eng.mtf"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 211.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

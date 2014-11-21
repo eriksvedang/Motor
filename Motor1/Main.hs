@@ -1,16 +1,18 @@
 module Main where
 
+import Control.Monad.State
+
 import Engine
 import Draw
 import Knobs
 import Scene
-import Control.Monad.State
--- import qualified Graphics.UI.GLFW as G
+-- import Event
+import qualified Graphics.UI.GLFW as G
 
 main :: IO ()
 main = do 
     knobsRef <- watchAsync [] "knobs.txt"
-    runEngine def (GameState 0.5 knobsRef sceneMgr) update render
+    runEngine def (GameState 0.5 knobsRef sceneMgr) update render input
 
 sceneMgr :: SceneManager GameState
 sceneMgr = SceneManager [("a", sceneA), ("b", sceneB)] "b"
@@ -35,13 +37,15 @@ data GameState = GameState {
     _sceneMgr :: SceneManager GameState
 }
 
-instance Show GameState where
-    show s = "GameState, t = " ++ show (t s)
+-- Key -> Int -> KeyState -> ModifierKeys -> StateT s IO ()
+input :: InputFn GameState
+input key _ _ _ =
+    when (key == G.Key'E) $ do s <- get
+                               put $ s { t = 0.5 }
 
 update :: UpdateFn GameState
 update dt = do s <- get
-               let mgr = _sceneMgr s
-               updateSceneManager mgr dt
+               updateSceneManager (_sceneMgr s) dt
                s' <- get
                when (t s' > 1.0) $ newScene "b"
                when (t s' < 0.0) $ newScene "a"
