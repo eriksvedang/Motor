@@ -20,13 +20,15 @@ sceneMgr = SceneManager [("a", sceneA), ("b", sceneB)] "b"
 sceneA :: Scene GameState
 sceneA = Scene {
     updateFn = passTime,
-    renderFn = return ()
+    renderFn = return (),
+    inputFn = ignoreInput
 }
 
 sceneB :: Scene GameState
 sceneB = Scene {
     updateFn = reverseTime,
-    renderFn = return ()
+    renderFn = return (),
+    inputFn = ignoreInput
 }
 
 type KnobsRef = IORef [(String, Double)]
@@ -39,9 +41,14 @@ data GameState = GameState {
 
 -- Key -> Int -> KeyState -> ModifierKeys -> StateT s IO ()
 input :: InputFn GameState
-input key _ _ _ =
-    when (key == G.Key'E) $ do s <- get
-                               put $ s { t = 0.5 }
+input G.Key'E _ _ _ = do s <- get
+                         put $ s { t = 0.5 }
+input key i keyState modifierKeys = do
+    s <- get
+    inputToSceneManager (_sceneMgr s) key i keyState modifierKeys
+
+ignoreInput :: InputFn GameState
+ignoreInput _ _ _ _ = return ()
 
 update :: UpdateFn GameState
 update dt = do s <- get

@@ -2,16 +2,20 @@ module Scene(SceneManager(..),
              Scene(..),
              setScene,
              updateSceneManager,
-             renderSceneManager) where
+             renderSceneManager,
+             inputToSceneManager
+             ) where
 
 import Data.Maybe
 import Control.Monad.State
 import Control.Monad.Reader
 import Types
+import Graphics.UI.GLFW (Key, KeyState, ModifierKeys)
 
 data Scene s = Scene {
     updateFn :: UpdateFn s,
-    renderFn :: RenderFn s
+    renderFn :: RenderFn s,
+    inputFn  :: InputFn s
 }
 
 instance Show (Scene s) where
@@ -45,3 +49,9 @@ renderSceneManager mgr =
     let scene = getActiveScene mgr
         f = renderFn scene
     in f
+
+inputToSceneManager :: SceneManager s -> Key -> Int -> KeyState -> ModifierKeys -> StateT s IO ()
+inputToSceneManager mgr key i keyState modifierKeys =
+    let scene = getActiveScene mgr
+        f = inputFn scene
+    in f key i keyState modifierKeys
