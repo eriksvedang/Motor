@@ -1,51 +1,74 @@
 module Main where
 
+import Control.Monad.State
+
 import Engine
 import Draw
-import Data.Maybe
+import Knobs
 import Scene
-import Event
+-- import Event
+import qualified Graphics.UI.GLFW as G
 
 main :: IO ()
-main = runEngine settings defaultKnobs initState sceneManager
-    where settings = EngineSettings "MOTOR" (500, 500) True "knobs.txt" bgColor
-          sceneManager = SceneManager [("a", sceneA), ("b", sceneB)] "a"
-          bgColor = rgbaColor 0.2 0.2 0.2 1.0
-          defaultKnobs = []::KnobType
+main = do 
+    knobsRef <- watchAsync [] "knobs.txt"
+    runEngine def (GameState 0.5 knobsRef sceneMgr) update render input
 
-type KnobType = [(String, Double)]
+sceneMgr :: SceneManager GameState
+sceneMgr = SceneManager [("a", sceneA), ("b", sceneB)] "b"
 
-data GameState = GameState {
-    t :: Double
+sceneA :: Scene GameState
+sceneA = Scene {
+    updateFn = passTime,
+    renderFn = return ()
 }
 
-initState :: GameState
-initState = GameState 0.0
+sceneB :: Scene GameState
+sceneB = Scene {
+    updateFn = reverseTime,
+    renderFn = return ()
+}
 
+type KnobsRef = IORef [(String, Double)]
 
-sceneA :: Scene GameState KnobType
-sceneA = Scene renderSceneA
-               updateSceneA
-renderSceneA :: GameState -> KnobType -> IO ()
-renderSceneA gameState _ = line (0, 0) (t gameState / 10.0, 0)
+data GameState = GameState {
+    t :: Double,
+    _knobsRef :: KnobsRef,
+    _sceneMgr :: SceneManager GameState
+}
 
-updateSceneA :: GameState -> KnobType -> Double -> (GameState, [Event])
-updateSceneA gameState _ dt = 
-    (gameState { t = t gameState + dt }, 
-     if t gameState < 3.0 then [] else [ChangeScene "b", SetWindowSize (200, 200)])
+-- Key -> Int -> KeyState -> ModifierKeys -> StateT s IO ()
+input :: InputFn GameState
+input key _ _ _ =
+    when (key == G.Key'E) $ do s <- get
+                               put $ s { t = 0.5 }
 
+update :: UpdateFn GameState
+update dt = do s <- get
+               updateSceneManager (_sceneMgr s) dt
+               s' <- get
+               when (t s' > 1.0) $ newScene "b"
+               when (t s' < 0.0) $ newScene "a"
 
-sceneB :: Scene GameState KnobType
-sceneB = Scene renderSceneB
-               updateSceneB
+newScene :: String -> StateT GameState IO ()
+newScene name = do s <- get
+                   put $ s { _sceneMgr = setScene (_sceneMgr s) name }
 
-renderSceneB :: GameState -> KnobType -> IO ()
-renderSceneB gameState _ = line (0, sin (t gameState)) (negate 0.5, 0.0)
+readKnob :: String -> StateT GameState IO Double
+readKnob name = do s <- get
+                   liftIO $ readSetting name (_knobsRef s)
 
-updateSceneB :: GameState -> KnobType -> Double -> (GameState, [Event])
-updateSceneB gameState knobs dt = 
-    (gameState { t = t gameState + speed * dt }, events)
-        where speed = fromJust $ lookup "speed" knobs
-              events = if t gameState < 7.0 then [] else [Quit]
+passTime :: Double -> StateT GameState IO ()
+passTime dt = do 
+    s <- get 
+    speed <- readKnob "speed"
+    put s { t = t s + dt * speed }
 
+reverseTime :: Double -> StateT GameState IO ()
+reverseTime dt = do 
+    s <- get 
+    put s { t = t s - dt }
 
+render :: RenderFn GameState
+render = do s <- ask
+            liftIO $ line (0,0) (t s, 0)
