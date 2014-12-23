@@ -22,6 +22,9 @@ http://soup.datenwolf.net/post/93977391/Basic-OpenGL-tutorial-in-Haskell-done-ri
 * Postmodern Haskell and OpenGL: Introducing vinyl-gl
 http://www.arcadianvisions.com/blog/?p=388
 
+* Vinyl-gl on github (Utilities for working with OpenGL's GLSL shading language and vinyl records.)
+https://github.com/acowley/vinyl-gl
+
 * The code to render bitmaps in Gloss
 https://github.com/benl23x5/gloss/blob/master/gloss/Graphics/Gloss/Internals/Render/Picture.hs#L190
 
@@ -33,3 +36,13 @@ https://hackage.haskell.org/package/linear
 
 * The JuicyPixels package
 https://hackage.haskell.org/package/JuicyPixels
+
+* Gl 3.1 Haskell tutorials
+https://github.com/YPares/Haskell-OpenGL3.1-Tutos
+
+* Small example (GLUT + Modern OpenGL)
+https://github.com/haskell-opengl/GLUT/blob/master/examples/Misc/SmoothOpenGL3.hs
+
+* Linear example
+https://github.com/ocharles/blog/blob/master/code/2013-12-02-linear-example.hs
+
