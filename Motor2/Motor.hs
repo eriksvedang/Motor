@@ -1,5 +1,4 @@
 module Motor ( run
-             , def
              , MotorSettings(..) )
 where
 
@@ -10,47 +9,44 @@ import System.Exit (exitSuccess, exitFailure)
 import Control.Monad (unless)
 import Rendering
 
-type RenderFn = GL.Program -> IO ()
+type RenderFn a = a -> IO ()
 
-data MotorSettings = MotorSettings
+data MotorSettings a = MotorSettings
                      { windowTitle :: String
-                     , renderFn    :: RenderFn
-                     , setupFn     :: IO (Maybe GL.Program)
+                     , renderFn    :: RenderFn a
+                     , setupFn     :: IO a
                      }
 
-def :: MotorSettings
-def = MotorSettings {
-  windowTitle = "Motor",
-  renderFn = \_ -> return (),
-  setupFn = return Nothing
-}
+-- def :: MotorSettings
+-- def = MotorSettings {
+--   windowTitle = "Motor",
+--   renderFn = \_ -> return (),
+--   setupFn = return Nothing
+-- }
 
-run :: MotorSettings -> IO ()
+run :: MotorSettings a -> IO ()
 run motorSettings = do
   GLFW.setErrorCallback (Just errorCallback)
   ok <- GLFW.init
   if ok then makeWindow motorSettings else exitFailure
 
-makeWindow :: MotorSettings -> IO ()
+makeWindow :: MotorSettings a -> IO ()
 makeWindow motorSettings = do
   maybeWindow <- GLFW.createWindow 600 400 (windowTitle motorSettings) Nothing Nothing
   case maybeWindow of
    Nothing -> GLFW.terminate >> exitFailure
    Just window -> startLoop window motorSettings
 
-startLoop :: GLFW.Window -> MotorSettings -> IO ()
+startLoop :: GLFW.Window -> MotorSettings a -> IO ()
 startLoop window motorSettings = do
   GLFW.makeContextCurrent (Just window)
   GL.clearColor GL.$= GL.Color4 1 1 0.9 1
-  p <- (setupFn motorSettings)
-  let prog = case p of
-        Just p -> p
-        Nothing -> error "failed to load prog"
+  renderData <- (setupFn motorSettings)
   let loop = do
         close <- GLFW.windowShouldClose window
         unless close $ do
           GL.clear [GL.ColorBuffer]
-          (renderFn motorSettings) prog
+          (renderFn motorSettings) renderData
           GLFW.swapBuffers window
           GLFW.pollEvents
           loop
