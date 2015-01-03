@@ -9,15 +9,17 @@ import Foreign.Storable (sizeOf)
 import System.FilePath ((</>))
 
 main :: IO ()
-main = do
-  run $ def {renderFn = render}
+main = run $ def { renderFn = render
+                 , setupFn = setup}
 
---render :: Program -> IO ()
-render = do
+setup = do
   vs <- loadShader VertexShader $ "resources" </> "shader.vert"
   fs <- loadShader FragmentShader $ "resources" </> "shader.frag"
   prog <- linkShaderProgram [vs,fs]
   currentProgram $= Just prog
+  return $ Just prog
+
+render prog = do
   vb <- makeBuffer ArrayBuffer vertexBufferData
   posn <- get (attribLocation prog "coord2d")
   let stride = fromIntegral $ sizeOf (undefined::GLfloat) * 2

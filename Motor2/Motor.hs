@@ -10,15 +10,19 @@ import System.Exit (exitSuccess, exitFailure)
 import Control.Monad (unless)
 import Rendering
 
-type RenderFn = IO ()
+type RenderFn = GL.Program -> IO ()
 
-data MotorSettings = MotorSettings { windowTitle :: String
-                                   , renderFn    :: RenderFn }
+data MotorSettings = MotorSettings
+                     { windowTitle :: String
+                     , renderFn    :: RenderFn
+                     , setupFn     :: IO (Maybe GL.Program)
+                     }
 
 def :: MotorSettings
 def = MotorSettings {
   windowTitle = "Motor",
-  renderFn = return ()
+  renderFn = \_ -> return (),
+  setupFn = return Nothing
 }
 
 run :: MotorSettings -> IO ()
@@ -38,11 +42,15 @@ startLoop :: GLFW.Window -> MotorSettings -> IO ()
 startLoop window motorSettings = do
   GLFW.makeContextCurrent (Just window)
   GL.clearColor GL.$= GL.Color4 1 1 0.9 1
+  p <- (setupFn motorSettings)
+  let prog = case p of
+        Just p -> p
+        Nothing -> error "failed to load prog"
   let loop = do
         close <- GLFW.windowShouldClose window
         unless close $ do
           GL.clear [GL.ColorBuffer]
-          renderFn motorSettings
+          (renderFn motorSettings) prog
           GLFW.swapBuffers window
           GLFW.pollEvents
           loop
