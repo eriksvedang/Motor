@@ -4,6 +4,7 @@ module Motor ( run
 where
 
 import qualified Graphics.UI.GLFW as GLFW
+import qualified Graphics.Rendering.OpenGL as GL
 import System.IO (hPutStrLn, stderr)
 import System.Exit (exitSuccess, exitFailure)
 import Control.Monad (unless)
@@ -36,9 +37,11 @@ makeWindow motorSettings = do
 startLoop :: GLFW.Window -> MotorSettings -> IO ()
 startLoop window motorSettings = do
   GLFW.makeContextCurrent (Just window)
+  GL.clearColor GL.$= GL.Color4 1 1 0.9 1
   let loop = do
         close <- GLFW.windowShouldClose window
         unless close $ do
+          GL.clear [GL.ColorBuffer]
           renderFn motorSettings
           GLFW.swapBuffers window
           GLFW.pollEvents
