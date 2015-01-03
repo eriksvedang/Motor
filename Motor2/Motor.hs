@@ -1,29 +1,45 @@
-module Motor ( run ) where
+module Motor ( run
+             , def
+             , MotorSettings(..) )
+where
 
 import qualified Graphics.UI.GLFW as GLFW
 import System.IO (hPutStrLn, stderr)
 import System.Exit (exitSuccess, exitFailure)
-import Control.Monad
+import Control.Monad (unless)
+import Rendering
 
-run :: IO ()
-run = do
+type RenderFn = IO ()
+
+data MotorSettings = MotorSettings { windowTitle :: String
+                                   , renderFn    :: RenderFn }
+
+def :: MotorSettings
+def = MotorSettings {
+  windowTitle = "Motor",
+  renderFn = return ()
+}
+
+run :: MotorSettings -> IO ()
+run motorSettings = do
   GLFW.setErrorCallback (Just errorCallback)
   ok <- GLFW.init
-  if ok then makeWindow else exitFailure
+  if ok then makeWindow motorSettings else exitFailure
 
-makeWindow :: IO ()
-makeWindow = do
-  maybeWindow <- GLFW.createWindow 600 400 "λ" Nothing Nothing
+makeWindow :: MotorSettings -> IO ()
+makeWindow motorSettings = do
+  maybeWindow <- GLFW.createWindow 600 400 (windowTitle motorSettings) Nothing Nothing
   case maybeWindow of
    Nothing -> GLFW.terminate >> exitFailure
-   Just window -> startLoop window
+   Just window -> startLoop window motorSettings
 
-startLoop :: GLFW.Window -> IO ()
-startLoop window = do
+startLoop :: GLFW.Window -> MotorSettings -> IO ()
+startLoop window motorSettings = do
   GLFW.makeContextCurrent (Just window)
   let loop = do
         close <- GLFW.windowShouldClose window
         unless close $ do
+          renderFn motorSettings
           GLFW.swapBuffers window
           GLFW.pollEvents
           loop

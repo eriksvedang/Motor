@@ -1,7 +1,10 @@
 module Main where
 
-import Motor (run)
+import Motor (run, def, MotorSettings(..))
 
 main :: IO ()
-main = run
+main = run $ def {renderFn = render}
+
+render :: IO ()
+render = putStrLn "hej"
 
