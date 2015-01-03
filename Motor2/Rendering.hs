@@ -3,8 +3,9 @@ module Rendering where
 import Graphics.Rendering.OpenGL
 import Graphics.GLUtil
 import qualified Graphics.UI.GLFW as GLFW
-import System.FilePath ((</>))
 import Foreign.Storable (sizeOf)
+
+--import System.FilePath ((</>))
 
 vertexBufferData :: [GLfloat]
 vertexBufferData = [-1,  0,
