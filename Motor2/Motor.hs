@@ -1,4 +1,5 @@
 module Motor ( run
+             , def
              , MotorSettings(..) )
 where
 
@@ -17,12 +18,12 @@ data MotorSettings a = MotorSettings
                      , setupFn     :: IO a
                      }
 
--- def :: MotorSettings
--- def = MotorSettings {
---   windowTitle = "Motor",
---   renderFn = \_ -> return (),
---   setupFn = return Nothing
--- }
+def :: MotorSettings ()
+def = MotorSettings {
+  windowTitle = "Motor",
+  renderFn = \_ -> return (),
+  setupFn = return ()
+}
 
 run :: MotorSettings a -> IO ()
 run motorSettings = do
