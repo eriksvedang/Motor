@@ -4,7 +4,33 @@ import Graphics.Rendering.OpenGL
 import Graphics.GLUtil
 import qualified Graphics.UI.GLFW as GLFW
 import Foreign.Storable (sizeOf)
+import Linear
+import System.FilePath ((</>))
 
+move :: GLfloat -> GLfloat -> M44 GLfloat
+move x y = mkTransformation ident (V3 x y 0.0)
+       where ident = Quaternion 0.0 (V3 0 0 0)
+
+vertexBufferData, vertexBufferData2 :: [GLfloat]
+vertexBufferData  = [-0.1, 0, 0, 0.1, 0.1, 0]
+vertexBufferData2 = [-0.5, 0, 0, -1, 1, 0]
+
+shapeExampleSetup = do
+  prog <- simpleShaderProgram ("resources" </> "shape.v.glsl") ("resources" </> "shape.f.glsl")
+  currentProgram $= Just (program prog)
+  a <- makeBuffer ArrayBuffer vertexBufferData
+  b <- makeBuffer ArrayBuffer vertexBufferData2
+  let stride = fromIntegral $ sizeOf (undefined::GLfloat) * 2
+      vad = VertexArrayDescriptor 2 Float stride offset0
+  return (prog, vad, a, b)
+
+shapeExampleRender (prog, vad, a, b) = do
+  bindBuffer ArrayBuffer $= Just a
+  enableAttrib prog "coord2d"
+  setAttrib prog "coord2d" ToFloat vad
+  setUniform prog "col" (V3 (0::GLfloat) 1 0)
+  setUniform prog "m_transform" (move (-0.2) 0.0)
+  drawArrays Triangles 0 3
 
 
 

@@ -2,3 +2,5 @@
 *.o
 Motor1/dist
 Motor2/dist
+/Motor2/#*motor2*#
+/Motor2/*motor2*
