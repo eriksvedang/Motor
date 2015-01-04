@@ -18,24 +18,38 @@ spriteQuad  = [-1, -1,
 
 spriteExampleSetup = do
   Right rur <- readTexture ("resources" </> "Rur.png")
+  Right jur <- readTexture ("resources" </> "Jur.png")
 
-  textureFilter   Texture2D   $= ((Linear', Nothing), Linear')
-  textureWrapMode Texture2D S $= (Mirrored, ClampToEdge)
-  textureWrapMode Texture2D T $= (Mirrored, ClampToEdge)
+  --textureFilter Texture2D $= ((Linear', Nothing), Linear')
+  textureFilter Texture2D $= ((Nearest, Nothing), Nearest)
 
-  prog <- simpleShaderProgram ("resources" </> "shape.v.glsl") ("resources" </> "shape.f.glsl")
+  --textureWrapMode Texture2D S $= (Mirrored, ClampToEdge)
+  --textureWrapMode Texture2D T $= (Mirrored, ClampToEdge)
+  textureWrapMode Texture2D S $= (Repeated, Repeat)
+  textureWrapMode Texture2D T $= (Repeated, Repeat)
+
+  --activeTexture $= TextureUnit 0
+  textureBinding Texture2D $= Just rur
+
+  blend $= Enabled
+  blendFunc $= (SrcAlpha, OneMinusSrcAlpha)
+
+  prog <- simpleShaderProgram ("resources" </> "sprite.v.glsl") ("resources" </> "sprite.f.glsl")
   currentProgram $= Just (program prog)
-  a <- makeBuffer ArrayBuffer spriteQuad
-  b <- makeBuffer ArrayBuffer spriteQuad
+  quad <- makeBuffer ArrayBuffer spriteQuad
   let stride = fromIntegral $ sizeOf (undefined::GLfloat) * 2
       vad = VertexArrayDescriptor 2 Float stride offset0
-  return (prog, vad, a, b)
+      
+  return (prog, vad, quad)
 
-spriteExampleRender (prog, vad, a, b) = do
-  bindBuffer ArrayBuffer $= Just a
+spriteExampleRender (prog, vad, quad) = do
+  --drawAt 0 0
+  drawAt (prog, vad, quad) 0.2 0
+
+drawAt (prog, vad, quad) x y = do
+  bindBuffer ArrayBuffer $= Just quad
   enableAttrib prog "coord2d"
   setAttrib prog "coord2d" ToFloat vad
-  setUniform prog "col" (V3 (0::GLfloat) 1 0)
-  setUniform prog "m_transform" (move 0 0)
+  setUniform prog "m_transform" (move x y)
+  --setUniform prog "texture0" (TextureUnit 0)
   drawArrays TriangleStrip 0 6
-
