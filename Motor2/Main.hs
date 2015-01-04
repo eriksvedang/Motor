@@ -7,6 +7,7 @@ import Graphics.Rendering.OpenGL
 import Graphics.GLUtil
 import Foreign.Storable (sizeOf)
 import System.FilePath ((</>))
+import Linear
 
 main :: IO ()
 main = run $ def { renderFn = render
@@ -30,10 +31,12 @@ render (prog, vad, a, b) = do
   bindBuffer ArrayBuffer $= Just a
   enableAttrib prog "coord2d"
   setAttrib prog "coord2d" ToFloat vad
+  setUniform prog "col" (V3 (0::GLfloat) 1 0)
   drawArrays Triangles 0 3
 
   bindBuffer ArrayBuffer $= Just b
   enableAttrib prog "coord2d"
   setAttrib prog "coord2d" ToFloat vad
+  setUniform prog "col" (V3 (1::GLfloat) 1 0)
   drawArrays Triangles 0 3
 
