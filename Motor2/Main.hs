@@ -13,20 +13,27 @@ main = run $ def { renderFn = render
                  , setupFn = setup
                  }
 
+vertexBufferData, vertexBufferData2 :: [GLfloat]
+vertexBufferData  = [-1, 0, 0, 1, 1, 0]
+vertexBufferData2 = [-0.5, 0, 0, -1, 1, 0]
+
 setup = do
-  vs <- loadShader VertexShader $ "resources" </> "shader.vert"
-  fs <- loadShader FragmentShader $ "resources" </> "shader.frag"
-  prog <- linkShaderProgram [vs,fs]
-  currentProgram $= Just prog
-  vb <- makeBuffer ArrayBuffer vertexBufferData
-  posn <- get (attribLocation prog "coord2d")
+  prog <- simpleShaderProgram ("resources" </> "shader.vert") ("resources" </> "shader.frag")
+  currentProgram $= Just (program prog)
+  a <- makeBuffer ArrayBuffer vertexBufferData
+  b <- makeBuffer ArrayBuffer vertexBufferData2
   let stride = fromIntegral $ sizeOf (undefined::GLfloat) * 2
       vad = VertexArrayDescriptor 2 Float stride offset0
-  return (prog, vb, posn, vad)
+  return (prog, vad, a, b)
 
-render (prog, vb, posn, vad) = do
-  bindBuffer ArrayBuffer   $= Just vb
-  vertexAttribPointer posn $= (ToFloat, vad)
-  vertexAttribArray posn   $= Enabled
+render (prog, vad, a, b) = do
+  bindBuffer ArrayBuffer $= Just a
+  enableAttrib prog "coord2d"
+  setAttrib prog "coord2d" ToFloat vad
+  drawArrays Triangles 0 3
+
+  bindBuffer ArrayBuffer $= Just b
+  enableAttrib prog "coord2d"
+  setAttrib prog "coord2d" ToFloat vad
   drawArrays Triangles 0 3
 

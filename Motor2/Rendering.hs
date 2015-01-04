@@ -5,33 +5,7 @@ import Graphics.GLUtil
 import qualified Graphics.UI.GLFW as GLFW
 import Foreign.Storable (sizeOf)
 
---import System.FilePath ((</>))
 
-vertexBufferData :: [GLfloat]
-vertexBufferData = [-1,  0,
-                     0,  1,
-                     1,  0]
-
--- vs <- loadShader VertexShader $ "resources" </> "shader.vert"
--- fs <- loadShader FragmentShader $ "resources" </> "shader.frag"
--- prog <- linkShaderProgram [vs,fs]
-
-drawingTest = do
-
-  prog <- simpleShaderProgram "resources/shader.vert" "resources/shader.frag"
-  currentProgram $= Just (program prog)
-
-  let posn = getAttrib prog "coord2d"
-      stride = fromIntegral $ sizeOf (undefined::GLfloat) * 2
-      vad = VertexArrayDescriptor 2 Float stride offset0
-      
-  vb <- makeBuffer ArrayBuffer vertexBufferData
-  
-  bindBuffer ArrayBuffer   $= Just vb
-  vertexAttribPointer posn $= (ToFloat, vad)
-  vertexAttribArray posn   $= Enabled
-
-  drawArrays Triangles 0 3
 
 
 
