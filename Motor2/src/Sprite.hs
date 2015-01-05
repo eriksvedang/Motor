@@ -49,6 +49,8 @@ getTextureUnit store textureName =
 
 mkSpriteStore :: [String] -> IO (SpriteStore a)
 mkSpriteStore textureNames = do
+  textures <- mapM loadTex textureNames
+  zipWithM_ assignTextureToUnit textures [0..]
   prog <- simpleShaderProgram ("resources" </> "sprite.v.glsl") ("resources" </> "sprite.f.glsl")
   currentProgram $= Just (program prog)
   quad <- makeBuffer ArrayBuffer spriteQuad
@@ -60,10 +62,6 @@ mkSpriteStore textureNames = do
         quad = quad,
         textureNamesToUnits = zipWith (,) textureNames [0..]
       }
-
-  textures <- mapM loadTex textureNames
-  zipWithM_ assignTextureToUnit textures [0..]
-
   return store
 
 camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
