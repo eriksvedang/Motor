@@ -47,6 +47,8 @@ startLoop window motorSettings = do
   GL.clearColor $= (clearColor motorSettings)
   GL.blend $= GL.Enabled
   GL.blendFunc $= (GL.SrcAlpha, GL.OneMinusSrcAlpha)
+  GL.texture GL.Texture2D $= GL.Enabled
+  
   setupResult <- (setupFn motorSettings)
   let loop frameInfo = do
         close <- GLFW.windowShouldClose window

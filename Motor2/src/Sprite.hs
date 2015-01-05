@@ -7,10 +7,12 @@ import Graphics.GLUtil
 import Graphics.GLUtil.Camera2D
 import qualified Graphics.UI.GLFW as GLFW
 import Foreign.Storable (sizeOf)
+import Foreign.C.Types (CUInt)
 import Linear
 import Linear.Matrix
 import System.FilePath ((</>))
 import Control.Applicative
+import Control.Monad (zipWithM_)
 
 spriteQuad :: [GLfloat]
 spriteQuad  = [-1.0, -1.0,
@@ -19,12 +21,14 @@ spriteQuad  = [-1.0, -1.0,
                 1.0, -1.0,
                -1.0, -1.0]
 
-loadTex :: FilePath -> IO TextureObject
-loadTex f = do t <- either error id <$> readTexture f
-               --textureFilter Texture2D $= ((Linear', Nothing), Linear')
-               textureFilter Texture2D $= ((Nearest, Nothing), Nearest)
-               texture2DWrap $= (Repeated, ClampToEdge)
-               return t
+loadTex :: String -> IO TextureObject
+loadTex name = do
+  tex <- either error id <$> readTexture ("resources" </> name)
+  --textureFilter Texture2D $= ((Linear', Nothing), Linear')
+  texture2DWrap $= (Repeated, ClampToEdge)
+  textureFilter Texture2D $= ((Nearest, Nothing), Nearest)
+  --putStrLn $ "Bound " ++ name ++ ", " ++ show tex ++ " to texture unit " ++ show textureUnitNr
+  return tex
 
 data SpriteStore a = SpriteStore {
   prog :: ShaderProgram,
@@ -32,7 +36,11 @@ data SpriteStore a = SpriteStore {
   quad :: BufferObject 
 }
 
-mkSpriteStore = do
+assignTextureToNr texture nr = do
+  activeTexture $= TextureUnit nr
+  textureBinding Texture2D $= Just texture
+
+mkSpriteStore spriteNames = do
   prog <- simpleShaderProgram ("resources" </> "sprite.v.glsl") ("resources" </> "sprite.f.glsl")
   currentProgram $= Just (program prog)
   quad <- makeBuffer ArrayBuffer spriteQuad
@@ -43,35 +51,20 @@ mkSpriteStore = do
         vad = vad,
         quad = quad
       }
+
+  textures <- mapM loadTex spriteNames
+  zipWithM_ assignTextureToNr textures [0..]
+
   return store
 
 spriteExampleSetup = do
-  
-  rur <- loadTex ("resources" </> "Rur.png")
-  jur <- loadTex ("resources" </> "Jur.png")
-  lur <- loadTex ("resources" </> "Lur.png")
-
-  texture Texture2D $= Enabled
-  
-  activeTexture $= TextureUnit 0
-  textureBinding Texture2D $= Just rur
-
-  activeTexture $= TextureUnit 1
-  textureBinding Texture2D $= Just jur
-
-  activeTexture $= TextureUnit 2
-  textureBinding Texture2D $= Just lur
-
-  store <- mkSpriteStore
-    
+  store <- mkSpriteStore ["Rur.png", "Jur.png", "Lur.png"]
   return store
 
 spriteExampleRender window store = do
   drawAt store window 0 0 0
   drawAt store window 1 2 0
-  drawAt store window 1 4 0
-  drawAt store window 0 4 2
-  drawAt store window 2 (-4) 2
+  drawAt store window 2 4 0
 
 camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
          where w = (winW / spriteSize)::GLfloat
