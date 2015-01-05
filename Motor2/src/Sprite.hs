@@ -71,23 +71,22 @@ camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
 
 drawAt store cam textureName x y = do
   bindBuffer ArrayBuffer $= Just (quad store)
-  enableAttrib (prog store) "coord2d"
-  setAttrib (prog store) "coord2d" ToFloat (vad store)
-  setUniform (prog store) "m_transform" (move x y)
-  setUniform (prog store) "m_scale" (scaling 1.0 1.0)
-  setUniform (prog store) "m_cam" cam
+  enableAttrib (prog store) "v_coord"
+  setAttrib (prog store) "v_coord" ToFloat (vad store)
   setUniform (prog store) "tex" $ (getTextureUnit store textureName)
+  setUniform (prog store) "m_transform" $ cam !*! scaling 1.0 1.0 !*! move x y
   drawArrays TriangleStrip 0 6
 
+positions = [(-10.0),(-9.99)..10.0]
+
 spriteExampleSetup = do
+  putStrLn $ "Sprite count: " ++ show (length positions)
   store <- mkSpriteStore ["Rur.png", "Jur.png", "Lur.png"]
   return store
 
 spriteExampleRender window store = do
   (winW, winH) <- GLFW.getWindowSize window
-  let cam = (camera (fromIntegral winW) (fromIntegral winH))
-      positions = [(-10.0),(-9.99)..10.0]
-  putStrLn $ "count: " ++ show (length positions)
+  let cam = (camera (fromIntegral winW) (fromIntegral winH))      
   mapM_ (\x -> drawAt store cam "Rur.png" x (sin x)) positions
   drawAt store cam "Lur.png" 2 2
   drawAt store cam "Jur.png" 4 2
