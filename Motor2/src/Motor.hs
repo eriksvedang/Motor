@@ -17,13 +17,15 @@ data MotorSettings a = MotorSettings
                      { windowTitle :: String
                      , renderFn    :: RenderFn a
                      , setupFn     :: IO a
+                     , clearColor  :: GL.Color4 GL.GLfloat
                      }
 
 def :: MotorSettings ()
 def = MotorSettings {
   windowTitle = "Motor",
   renderFn = \_ _ -> return (),
-  setupFn = return ()
+  setupFn = return (),
+  clearColor = GL.Color4 0.9 1 0.9 1
 }
 
 run :: MotorSettings a -> IO ()
@@ -42,7 +44,7 @@ makeWindow motorSettings = do
 startLoop :: GLFW.Window -> MotorSettings a -> IO ()
 startLoop window motorSettings = do
   GLFW.makeContextCurrent (Just window)
-  GL.clearColor $= GL.Color4 1 1 0.9 1
+  GL.clearColor $= (clearColor motorSettings)
   GL.blend $= GL.Enabled
   GL.blendFunc $= (GL.SrcAlpha, GL.OneMinusSrcAlpha)
   setupResult <- (setupFn motorSettings)
