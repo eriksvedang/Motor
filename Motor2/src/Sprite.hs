@@ -33,12 +33,19 @@ loadTex name = do
 data SpriteStore a = SpriteStore {
   prog :: ShaderProgram,
   vad :: VertexArrayDescriptor a,
-  quad :: BufferObject 
+  quad :: BufferObject,
+  textureUnits :: [(String, CUInt)]
 }
 
 assignTextureToNr texture nr = do
   activeTexture $= TextureUnit nr
   textureBinding Texture2D $= Just texture
+
+getTextureUnit :: SpriteStore a -> String -> TextureUnit
+getTextureUnit store name =
+  case lookup name (textureUnits store) of
+   Nothing -> error $ "Failed to find texture with name " ++ name ++ " in SpriteStore"
+   Just n -> TextureUnit n
 
 mkSpriteStore spriteNames = do
   prog <- simpleShaderProgram ("resources" </> "sprite.v.glsl") ("resources" </> "sprite.f.glsl")
@@ -49,7 +56,8 @@ mkSpriteStore spriteNames = do
       store = SpriteStore {
         prog = prog,
         vad = vad,
-        quad = quad
+        quad = quad,
+        textureUnits = zipWith (,) spriteNames [0..]
       }
 
   textures <- mapM loadTex spriteNames
@@ -62,9 +70,9 @@ spriteExampleSetup = do
   return store
 
 spriteExampleRender window store = do
-  drawAt store window 0 0 0
-  drawAt store window 1 2 0
-  drawAt store window 2 4 0
+  drawAt store window "Rur.png" 0 0
+  drawAt store window "Lur.png" 2 0
+  drawAt store window "Jur.png" 4 0
 
 camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
          where w = (winW / spriteSize)::GLfloat
@@ -75,7 +83,7 @@ camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
 --cam = roll 45 $ camera2D
 -- (m33_to_m44 $ camMatrix cam)
 
-drawAt store window texUnit x y = do
+drawAt store window textureName x y = do
   bindBuffer ArrayBuffer $= Just (quad store)
   enableAttrib (prog store) "coord2d"
   setAttrib (prog store) "coord2d" ToFloat (vad store)
@@ -83,6 +91,6 @@ drawAt store window texUnit x y = do
   setUniform (prog store) "m_scale" (scaling 1.0 1.0)
   (winW, winH) <- GLFW.getWindowSize window
   setUniform (prog store) "m_cam" (camera (fromIntegral winW) (fromIntegral winH))
-  setUniform (prog store) "tex" $ TextureUnit texUnit
+  setUniform (prog store) "tex" $ (getTextureUnit store textureName)
   drawArrays TriangleStrip 0 6
 
