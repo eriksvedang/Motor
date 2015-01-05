@@ -13,6 +13,7 @@ import Sprite
 main :: IO ()
 main = run $ def { setupFn = spriteExampleSetup
                  , renderFn = spriteExampleRender
+                 , windowTitle = "HEJEHEHEHEJ"
                  }
 
 

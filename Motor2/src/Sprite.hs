@@ -4,6 +4,7 @@ import Rendering
 
 import Graphics.Rendering.OpenGL
 import Graphics.GLUtil
+import Graphics.GLUtil.Camera2D
 import qualified Graphics.UI.GLFW as GLFW
 import Foreign.Storable (sizeOf)
 import Linear
@@ -50,22 +51,27 @@ spriteExampleSetup = do
       
   return (prog, vad, quad)
 
-spriteExampleRender (prog, vad, quad) = do
-  drawAt (prog, vad, quad) 0 (-0.75) 0.3
-  drawAt (prog, vad, quad) 1 0.9 (-0.2)
+spriteExampleRender window (prog, vad, quad) = do
+  drawAt (prog, vad, quad) window 0 (-0.75) 0.3
+  drawAt (prog, vad, quad) window 1 0.7 (-0.2)
 
-drawAt (prog, vad, quad) n x y = do
+camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
+         where w = (winW / spriteSize)::GLfloat
+               h = (winH / spriteSize)::GLfloat
+               spriteSize = 64
+
+--cam :: Camera GLfloat
+--cam = roll 45 $ camera2D
+-- (m33_to_m44 $ camMatrix cam)
+
+drawAt (prog, vad, quad) window texUnit x y = do
   bindBuffer ArrayBuffer $= Just quad
   enableAttrib prog "coord2d"
   setAttrib prog "coord2d" ToFloat vad
   setUniform prog "m_transform" (move x y)
-  setUniform prog "m_scale" (scaling 0.25)
-  setUniform prog "tex" $ TextureUnit n
+  setUniform prog "m_scale" (scaling 1.0 1.0)
+  (winW, winH) <- GLFW.getWindowSize window
+  setUniform prog "m_cam" (camera (fromIntegral winW) (fromIntegral winH))
+  setUniform prog "tex" $ TextureUnit texUnit
   drawArrays TriangleStrip 0 6
 
-scaling :: GLfloat -> M44 GLfloat
-scaling s =
-  V4 (V4 s 0 0 0)
-     (V4 0 s 0 0)
-     (V4 0 0 s 0)
-     (V4 0 0 0 1)

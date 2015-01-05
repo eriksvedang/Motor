@@ -10,7 +10,7 @@ import System.Exit (exitSuccess, exitFailure)
 import Control.Monad (unless)
 import Rendering
 
-type RenderFn a = a -> IO ()
+type RenderFn a = GLFW.Window -> a -> IO ()
 
 data MotorSettings a = MotorSettings
                      { windowTitle :: String
@@ -21,7 +21,7 @@ data MotorSettings a = MotorSettings
 def :: MotorSettings ()
 def = MotorSettings {
   windowTitle = "Motor",
-  renderFn = \_ -> return (),
+  renderFn = \_ _ -> return (),
   setupFn = return ()
 }
 
@@ -47,7 +47,7 @@ startLoop window motorSettings = do
         close <- GLFW.windowShouldClose window
         unless close $ do
           GL.clear [GL.ColorBuffer]
-          (renderFn motorSettings) renderData
+          (renderFn motorSettings) window renderData
           GLFW.swapBuffers window
           GLFW.pollEvents
           loop
