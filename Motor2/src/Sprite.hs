@@ -52,8 +52,10 @@ spriteExampleSetup = do
   return (prog, vad, quad)
 
 spriteExampleRender window (prog, vad, quad) = do
-  drawAt (prog, vad, quad) window 0 (-0.75) 0.3
-  drawAt (prog, vad, quad) window 1 0.7 (-0.2)
+  drawAt (prog, vad, quad) window 0 0 0
+  drawAt (prog, vad, quad) window 1 2 0
+  drawAt (prog, vad, quad) window 1 4 0
+  drawAt (prog, vad, quad) window 0 4 2
 
 camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
          where w = (winW / spriteSize)::GLfloat
