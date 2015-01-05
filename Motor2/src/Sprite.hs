@@ -27,9 +27,6 @@ loadTex f = do t <- either error id <$> readTexture f
                return t
 
 spriteExampleSetup = do
-  
-  blend $= Enabled
-  blendFunc $= (SrcAlpha, OneMinusSrcAlpha)
 
   prog <- simpleShaderProgram ("resources" </> "sprite.v.glsl") ("resources" </> "sprite.f.glsl")
   currentProgram $= Just (program prog)
@@ -48,6 +45,9 @@ spriteExampleSetup = do
 
   activeTexture $= TextureUnit 1
   textureBinding Texture2D $= Just jur
+
+  activeTexture $= TextureUnit 2
+  textureBinding Texture2D $= Just lur
       
   return (prog, vad, quad)
 
@@ -56,6 +56,7 @@ spriteExampleRender window (prog, vad, quad) = do
   drawAt (prog, vad, quad) window 1 2 0
   drawAt (prog, vad, quad) window 1 4 0
   drawAt (prog, vad, quad) window 0 4 2
+  drawAt (prog, vad, quad) window 2 (-4) 2
 
 camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
          where w = (winW / spriteSize)::GLfloat
