@@ -95,6 +95,3 @@ spriteExampleRender window store = do
   mapM_ (\x -> drawAt store cam "Rur.png" x (sin x)) positions
   drawAt store cam "Lur.png" 2 2
   drawAt store cam "Jur.png" 4 2
-
--- hejsan
-
