@@ -96,3 +96,5 @@ spriteExampleRender window store = do
   drawAt store cam "Lur.png" 2 2
   drawAt store cam "Jur.png" 4 2
 
+-- hejsan
+
