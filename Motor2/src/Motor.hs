@@ -9,7 +9,7 @@ import Graphics.Rendering.OpenGL (($=))
 import System.IO (hPutStrLn, stderr)
 import System.Exit (exitSuccess, exitFailure)
 import Control.Monad (unless, when)
-import Rendering
+--import Rendering
 
 type RenderFn a = GLFW.Window -> a -> IO ()
 

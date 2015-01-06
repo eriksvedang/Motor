@@ -1,7 +1,7 @@
 module Main where
 
 import Motor (run, def, MotorSettings(..))
-import Rendering
+--import Rendering
 import Sprite
 
 -- import Graphics.Rendering.OpenGL
@@ -10,11 +10,7 @@ import Sprite
 -- import System.FilePath ((</>))
 -- import Linear
 
-main :: IO ()
 main = run $ def { setupFn = spriteExampleSetup
                  , renderFn = spriteExampleRender
                  , windowTitle = "HEJEHEHEHEJ"
                  }
-
-
-

@@ -64,11 +64,13 @@ mkSpriteStore textureNames = do
       }
   return store
 
+camera :: GLfloat -> GLfloat -> M44 GLfloat
 camera winW winH = Linear.ortho (-w) (w) (-h) (h) 0 1
          where w = (winW / spriteSize)::GLfloat
                h = (winH / spriteSize)::GLfloat
                spriteSize = 64
 
+drawAt :: SpriteStore a -> M44 GLfloat -> String -> GLfloat -> GLfloat -> IO ()
 drawAt store cam textureName x y = do
   bindBuffer ArrayBuffer $= Just (quad store)
   enableAttrib (prog store) "v_coord"
@@ -77,13 +79,16 @@ drawAt store cam textureName x y = do
   setUniform (prog store) "m_transform" $ cam !*! scaling 1.0 1.0 !*! move x y
   drawArrays TriangleStrip 0 6
 
+positions :: [GLfloat]
 positions = [(-10.0),(-9.99)..10.0]
 
+spriteExampleSetup :: IO (SpriteStore a)
 spriteExampleSetup = do
   putStrLn $ "Sprite count: " ++ show (length positions)
   store <- mkSpriteStore ["Rur.png", "Jur.png", "Lur.png"]
   return store
 
+spriteExampleRender :: GLFW.Window -> SpriteStore a -> IO ()
 spriteExampleRender window store = do
   (winW, winH) <- GLFW.getWindowSize window
   let cam = (camera (fromIntegral winW) (fromIntegral winH))      
