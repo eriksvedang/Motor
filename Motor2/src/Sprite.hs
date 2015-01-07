@@ -85,7 +85,11 @@ positions = [(-10.0),(-9.0)..10.0]
 spriteExampleSetup :: IO (SpriteStore a)
 spriteExampleSetup = do
   putStrLn $ "Sprite count: " ++ show (length positions)
+<<<<<<< HEAD
   mkSpriteStore ["Rur.png", "Jur.png", "Lur.png"]
+=======
+  return mkSpriteStore ["Rur.png", "Jur.png", "Lur.png"]
+>>>>>>> 7d41e1f11f4d3055641b2956a6127e6b708e1473
 
 spriteExampleRender :: GLFW.Window -> SpriteStore a -> IO ()
 spriteExampleRender window store = do
