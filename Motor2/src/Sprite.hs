@@ -80,7 +80,7 @@ drawAt store cam textureName x y = do
   drawArrays TriangleStrip 0 6
 
 positions :: [GLfloat]
-positions = [(-10.0),(-9.99)..10.0]
+positions = [(-10.0),(-9.0)..10.0]
 
 spriteExampleSetup :: IO (SpriteStore a)
 spriteExampleSetup = do
@@ -95,3 +95,4 @@ spriteExampleRender window store = do
   mapM_ (\x -> drawAt store cam "Rur.png" x (sin x)) positions
   drawAt store cam "Lur.png" 2 2
   drawAt store cam "Jur.png" 4 2
+  drawAt store cam "Jur.png" 0 0

@@ -12,5 +12,5 @@ import Sprite
 
 main = run $ def { setupFn = spriteExampleSetup
                  , renderFn = spriteExampleRender
-                 , windowTitle = "HEJEHEHEHEJ"
+                 , windowTitle = "M O T O R 2"
                  }
